@@ -32,24 +32,34 @@ export default function Concierge() {
 
   return (
     <div className="pt-16">
-      <section className="relative overflow-hidden bg-ink px-6 py-20 text-cream">
-        <Image
-          src="/images/texture-umber-3.jpg"
-          alt=""
-          fill
-          aria-hidden
-          className="pointer-events-none object-cover opacity-50"
-        />
-        <div className="absolute inset-0 bg-ink-deep/70" />
-        <div className="relative mx-auto max-w-3xl text-center">
-          <h1 className="font-display text-3xl sm:text-4xl">
-            Turn Your Backyard into a Managed Pollinator Sanctuary
-          </h1>
-          <p className="mt-4 text-cream/80">
-            You possess the space, the curiosity, and the passion. We provide
-            the expertise. Our Garden Concierge program sets up and maintains
-            a professional apiary directly on your property.
-          </p>
+      <section className="relative overflow-hidden bg-umber/10 px-6 py-16">
+        <div className="mx-auto flex max-w-5xl items-center justify-center gap-10">
+          <div className="hidden w-40 shrink-0 md:block">
+            <Image
+              src="/images/illustrations/hive-cottage.webp"
+              alt="A charming stilted beehive"
+              width={1200}
+              height={1386}
+            />
+          </div>
+          <div className="max-w-xl text-center">
+            <h1 className="font-display text-3xl text-ink-deep sm:text-4xl">
+              Let Us Bring the Bees to You
+            </h1>
+            <p className="mt-4 text-ink-deep/75">
+              Got a backyard and some curiosity? That&apos;s all you need.
+              Our Garden Concierge team handles the setup, the check-ups, and
+              the mite control — you just enjoy the honey.
+            </p>
+          </div>
+          <div className="hidden w-40 shrink-0 md:block">
+            <Image
+              src="/images/illustrations/hive-skep.webp"
+              alt="A traditional woven beehive skep"
+              width={1200}
+              height={1549}
+            />
+          </div>
         </div>
       </section>
 
@@ -107,7 +117,7 @@ export default function Concierge() {
                 type="submit"
                 className="shrink-0 rounded-full bg-gold-bright px-8 py-3 text-sm font-semibold text-ink-deep transition-colors hover:bg-gold"
               >
-                Request Assessment
+                Get a Free Garden Assessment
               </button>
             </form>
           )}

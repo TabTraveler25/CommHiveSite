@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Play } from "lucide-react";
 import { useTelemetry } from "@/lib/telemetry";
 
@@ -18,7 +19,7 @@ function TelemetryWave({ series }: { series: number[] }) {
   return (
     <svg
       viewBox={`0 0 ${width} ${height}`}
-      className="h-14 w-full text-gold-bright"
+      className="h-14 w-full text-gold-deep"
       preserveAspectRatio="none"
     >
       <polyline
@@ -33,60 +34,73 @@ function TelemetryWave({ series }: { series: number[] }) {
   );
 }
 
+const STAT_BEES = [
+  "/images/illustrations/bee-3.webp",
+  "/images/illustrations/bee-5.webp",
+  "/images/illustrations/bee-6.webp",
+];
+
 export default function BuzzHub() {
   const { hiveTemp, foragingLevel, growthLbs, series } = useTelemetry();
 
   return (
-    <div className="bg-ink-deep pt-16 text-cream">
+    <div className="bg-cream pt-16">
       <section className="mx-auto max-w-6xl px-6 py-16">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-olive">
-          Live From The Boxwoods Sanctuary Garden
+          Live From Our Garden at Boxwoods
         </p>
-        <h1 className="mt-4 font-display text-3xl text-gold-bright sm:text-4xl">
-          The Buzz Observation Hub
+        <h1 className="mt-4 font-display text-3xl text-ink-deep sm:text-4xl">
+          Come Watch the Hive at Work
         </h1>
-        <p className="mt-4 max-w-2xl text-cream/75">
-          Driven by non-invasive BroodMinder smart sensors, our live
-          educational dashboard connects you directly to the biological
-          pulse of the colony. No protective gear required — just pure
-          scientific wonder.
+        <p className="mt-4 max-w-2xl text-ink-deep/75">
+          We tucked some sensors inside the hive (the bees don&apos;t mind)
+          so you can see what&apos;s happening in real time — no bee suit
+          required, just pull up the dashboard. It&apos;s weirdly relaxing.
         </p>
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
-          <div className="rounded-lg border border-gold-deep/20 bg-umber/30 p-6">
-            <p className="text-xs uppercase tracking-wide text-cream/50">
-              Internal Hive Nest
-            </p>
-            <p className="mt-2 font-display text-3xl text-gold-bright">
-              {hiveTemp.toFixed(1)}°C
-            </p>
-            <p className="text-xs text-cream/50">Optimal Brood Temp</p>
-            <TelemetryWave series={series.map(() => hiveTemp * 2)} />
-          </div>
-
-          <div className="rounded-lg border border-gold-deep/20 bg-umber/30 p-6">
-            <p className="text-xs uppercase tracking-wide text-cream/50">
-              Foraging Activity
-            </p>
-            <p className="mt-2 font-display text-3xl text-gold-bright">
-              {foragingLevel > 65 ? "Spiking" : "Steady"}
-            </p>
-            <p className="text-xs text-cream/50">Post-Sunrise Flight Traffic</p>
-            <TelemetryWave series={series} />
-          </div>
-
-          <div className="rounded-lg border border-gold-deep/20 bg-umber/30 p-6">
-            <p className="text-xs uppercase tracking-wide text-cream/50">
-              Colony Growth
-            </p>
-            <p className="mt-2 font-display text-3xl text-gold-bright">
-              +{growthLbs.toFixed(2)} lbs
-            </p>
-            <p className="text-xs text-cream/50">Garden Gold Accumulation Today</p>
-            <TelemetryWave
-              series={series.map((_, i) => 20 + (i / series.length) * 60)}
-            />
-          </div>
+          {[
+            {
+              label: "Internal Hive Nest",
+              value: `${hiveTemp.toFixed(1)}°C`,
+              caption: "Optimal Brood Temp",
+              wave: series.map(() => hiveTemp * 2),
+            },
+            {
+              label: "Foraging Activity",
+              value: foragingLevel > 65 ? "Spiking" : "Steady",
+              caption: "Post-Sunrise Flight Traffic",
+              wave: series,
+            },
+            {
+              label: "Colony Growth",
+              value: `+${growthLbs.toFixed(2)} lbs`,
+              caption: "Garden Gold Accumulation Today",
+              wave: series.map((_, i) => 20 + (i / series.length) * 60),
+            },
+          ].map((stat, i) => (
+            <div
+              key={stat.label}
+              className="relative overflow-hidden rounded-lg border border-gold-deep/20 bg-white/70 p-6"
+            >
+              <Image
+                src={STAT_BEES[i]}
+                alt=""
+                width={80}
+                height={80}
+                aria-hidden
+                className="pointer-events-none absolute -right-2 -top-2 w-14 rotate-12 opacity-80"
+              />
+              <p className="text-xs uppercase tracking-wide text-ink-deep/50">
+                {stat.label}
+              </p>
+              <p className="mt-2 font-display text-3xl text-gold-deep">
+                {stat.value}
+              </p>
+              <p className="text-xs text-ink-deep/50">{stat.caption}</p>
+              <TelemetryWave series={stat.wave} />
+            </div>
+          ))}
         </div>
 
         <div className="mt-12 overflow-hidden rounded-xl border border-gold-deep/20">
@@ -100,12 +114,12 @@ export default function BuzzHub() {
               <Play className="h-6 w-6 translate-x-0.5" fill="currentColor" />
             </button>
             <p className="absolute bottom-4 left-4 right-4 text-xs text-cream/60">
-              Live Video Feed: Inside the Ulster-Style Observation Hive —
-              replace with final embedded video
+              Live Video Feed: Inside the Observation Hive — replace with
+              final embedded video
             </p>
           </div>
-          <div className="bg-umber/20 px-6 py-4">
-            <p className="text-sm text-cream/70">
+          <div className="bg-white/70 px-6 py-4">
+            <p className="text-sm text-ink-deep/70">
               Watch the queen lay eggs and workers unpack local pollen in
               real-time under shatter-proof acrylic panels.
             </p>
@@ -114,7 +128,7 @@ export default function BuzzHub() {
 
         <div className="mt-10">
           <button className="rounded-full bg-gold px-8 py-3 text-sm font-semibold text-ink-deep transition-colors hover:bg-gold-bright">
-            Subscribe for Deep Hive Telemetry
+            Get Hive Updates
           </button>
         </div>
       </section>

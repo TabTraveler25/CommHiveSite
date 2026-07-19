@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import clsx from "clsx";
 import { useCart } from "@/lib/cart-context";
 import { products, type Product } from "@/lib/products";
 import PlaceholderImage from "@/components/PlaceholderImage";
@@ -28,16 +29,22 @@ const GROUPS: { key: Product["group"]; title: string; intro: string }[] = [
 
 function ProductCard({ product }: { product: Product }) {
   const { addToCart } = useCart();
+  const isIllustration = product.image?.includes("/illustrations/");
 
   return (
     <div className="flex flex-col overflow-hidden rounded-lg border border-umber/15 bg-white/60">
       {product.image ? (
-        <div className="relative aspect-[4/3] w-full">
+        <div
+          className={clsx(
+            "relative aspect-[4/3] w-full",
+            isIllustration && "bg-cream"
+          )}
+        >
           <Image
             src={product.image}
             alt={product.name}
             fill
-            className="object-cover"
+            className={isIllustration ? "object-contain p-6" : "object-cover"}
           />
         </div>
       ) : (
@@ -69,11 +76,12 @@ export default function Shop() {
       <section className="bg-umber/10 px-6 py-16">
         <div className="mx-auto max-w-6xl text-center">
           <h1 className="font-display text-3xl text-ink-deep sm:text-4xl">
-            The Private Label Collection: Hyper-Local Terroir
+            Honey, Straight From Our Garden
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-ink-deep/70">
-            Visual proof of authenticity, harvested directly from the hives
-            you watch online.
+            What you taste changes with the seasons — tulip poplar in spring,
+            sourwood by summer. Every jar comes from the hives you can watch
+            online, so you always know exactly where it came from.
           </p>
         </div>
       </section>

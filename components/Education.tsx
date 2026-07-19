@@ -61,22 +61,22 @@ export default function Education() {
   return (
     <div className="relative pt-16">
       <Image
-        src="/images/bee-pattern.jpg"
+        src="/images/illustrations/pattern-bees-gold.webp"
         alt=""
         fill
         aria-hidden
-        className="pointer-events-none object-cover opacity-[0.04]"
+        className="pointer-events-none object-cover opacity-[0.05]"
       />
       <section className="relative mx-auto max-w-6xl px-6 py-16">
         <h1 className="font-display text-3xl text-ink-deep sm:text-4xl">
-          Educational Agritourism &amp; Local Trust
+          Learn With Us
         </h1>
 
         <div className="mt-10 grid gap-12 lg:grid-cols-2">
           <div>
             <h2 className="flex items-center gap-2 font-display text-xl text-ink-deep">
               <CalendarDays className="h-5 w-5 text-gold-deep" />
-              Upcoming Sanctuary Events
+              Upcoming Garden Events
             </h2>
             <ul className="mt-6 flex flex-col gap-4">
               {events.map((event) => (
@@ -97,9 +97,18 @@ export default function Education() {
           </div>
 
           <div>
-            <h2 className="font-display text-xl text-ink-deep">
-              Urban Beekeeping FAQ
-            </h2>
+            <div className="flex items-center gap-4">
+              <Image
+                src="/images/illustrations/beekeeper-portrait.webp"
+                alt="Watercolor portrait of a beekeeper in a veil"
+                width={1200}
+                height={2078}
+                className="h-14 w-14 rounded-full object-cover object-top"
+              />
+              <h2 className="font-display text-xl text-ink-deep">
+                Beekeeping Questions, Answered
+              </h2>
+            </div>
             <div className="mt-6">
               <FaqAccordion />
             </div>

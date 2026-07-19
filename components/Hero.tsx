@@ -3,45 +3,77 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden bg-ink">
+    <section className="relative overflow-hidden bg-cream pt-16">
       <Image
-        src="/images/texture-umber-1.jpg"
+        src="/images/illustrations/honeycomb-branch-1.webp"
         alt=""
-        fill
-        priority
+        width={700}
+        height={253}
         aria-hidden
-        className="pointer-events-none object-cover opacity-70"
+        className="pointer-events-none absolute -right-16 -top-6 hidden w-64 rotate-6 opacity-90 sm:block sm:w-80 md:w-[26rem]"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink-deep via-ink-deep/60 to-ink-deep/20" />
+      <Image
+        src="/images/illustrations/bee-2.webp"
+        alt=""
+        width={900}
+        height={632}
+        aria-hidden
+        className="pointer-events-none absolute left-[6%] top-20 hidden w-16 -rotate-12 sm:block sm:w-20 md:top-28 md:w-24"
+      />
+      <Image
+        src="/images/illustrations/bee-4.webp"
+        alt=""
+        width={2000}
+        height={1741}
+        aria-hidden
+        className="pointer-events-none absolute right-[10%] top-40 hidden w-20 rotate-12 sm:block sm:w-24 md:w-28"
+      />
+      <Image
+        src="/images/illustrations/bee-1.webp"
+        alt=""
+        width={1856}
+        height={1750}
+        aria-hidden
+        className="pointer-events-none absolute bottom-16 left-[8%] hidden w-20 rotate-6 sm:block md:w-28"
+      />
 
-      <div className="relative mx-auto max-w-4xl px-6 pt-16 text-center">
+      <div className="relative mx-auto max-w-4xl px-6 py-24 text-center sm:py-32">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-olive">
-          A Living Sanctuary Garden
+          Right in the Neighborhood
         </p>
-        <h1 className="mt-6 font-display text-4xl italic leading-tight text-cream sm:text-5xl md:text-6xl">
-          Witness the Secret Civilization.{" "}
-          <span className="text-gold-bright not-italic">
-            Taste the Garden Gold.
-          </span>
+        <h1 className="mt-6 font-display text-4xl leading-tight text-ink-deep sm:text-5xl md:text-6xl">
+          Meet the Bees Next Door.{" "}
+          <span className="text-gold-deep">Taste the Garden Gold.</span>
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-base text-cream/80 sm:text-lg">
-          Welcome to a living sanctuary where biological rhythm meets
-          hyper-local luxury. Explore real-time telemetry from our on-site
-          observation hives and experience the purest hive-to-table
-          artisanal treasures.
+        <p className="mx-auto mt-6 max-w-2xl text-base text-ink-deep/75 sm:text-lg">
+          Welcome to a living civilization located in picturesque gardens
+          right here at Boxwoods and you can watch them work in real time.
+          Then try the honey they&apos;ve been making! Experience the purest
+          hive-to-table treasures. It doesn&apos;t get more local than this.
         </p>
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+
+        <div className="relative mx-auto mt-10 h-10 w-full max-w-md">
+          <Image
+            src="/images/illustrations/honey-drip.webp"
+            alt=""
+            fill
+            aria-hidden
+            className="pointer-events-none object-contain opacity-80"
+          />
+        </div>
+
+        <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
             href="/buzz-hub"
             className="w-full rounded-full bg-gold px-8 py-3 text-sm font-semibold text-ink-deep transition-colors hover:bg-gold-bright sm:w-auto"
           >
-            Explore Live Dashboards
+            Peek Inside the Hive
           </Link>
           <Link
             href="/shop"
-            className="w-full rounded-full border border-gold-bright px-8 py-3 text-sm font-semibold text-gold-bright transition-colors hover:bg-gold-bright/10 sm:w-auto"
+            className="w-full rounded-full border border-gold-deep px-8 py-3 text-sm font-semibold text-gold-deep transition-colors hover:bg-gold-deep/10 sm:w-auto"
           >
-            Shop the Harvest
+            Shop the Honey
           </Link>
         </div>
       </div>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ShoppingCart, User, Menu, X } from "lucide-react";
 import clsx from "clsx";
 import { useCart } from "@/lib/cart-context";
@@ -17,31 +17,12 @@ const NAV_ITEMS = [
 
 export default function Header() {
   const pathname = usePathname();
-  const isHome = pathname === "/";
-  const [scrolled, setScrolled] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const { itemCount, openCart } = useCart();
 
-  useEffect(() => {
-    if (!isHome) return;
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [isHome]);
-
-  const solid = !isHome || scrolled || mobileNavOpen;
-
   return (
     <>
-      <header
-        className={clsx(
-          "fixed inset-x-0 top-0 z-40 transition-colors duration-300",
-          solid
-            ? "bg-ink-deep/95 backdrop-blur border-b border-gold-deep/20"
-            : "bg-transparent"
-        )}
-      >
+      <header className="fixed inset-x-0 top-0 z-40 border-b border-gold-deep/20 bg-ink-deep/95 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
           <Link
             href="/"

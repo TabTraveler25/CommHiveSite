@@ -17,11 +17,11 @@ export default function Footer() {
   return (
     <footer className="relative overflow-hidden bg-ink-deep text-cream">
       <Image
-        src="/images/bee-pattern.jpg"
+        src="/images/illustrations/pattern-bees-gold.webp"
         alt=""
         fill
         aria-hidden
-        className="pointer-events-none object-cover opacity-[0.06]"
+        className="pointer-events-none object-cover opacity-[0.12]"
       />
       <div className="relative mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-12 md:grid-cols-3">

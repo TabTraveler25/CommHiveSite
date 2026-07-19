@@ -25,6 +25,7 @@ export const products: Product[] = [
     group: "honey",
     price: 28,
     copy: "Professional, retail-ready section comb honey meticulously cut for the sophisticated palate.",
+    image: "/images/illustrations/comb-block.webp",
   },
   {
     slug: "velvet-creamed-honey",
@@ -32,6 +33,7 @@ export const products: Product[] = [
     group: "honey",
     price: 22,
     copy: "A perfectly smooth, spreadable luxury honey varietal designed for fine pairings.",
+    image: "/images/illustrations/honey-jar-wrapped.webp",
   },
   {
     slug: "neighborhood-nectar-flight",
@@ -39,6 +41,7 @@ export const products: Product[] = [
     group: "honey",
     price: 48,
     copy: "A curated seasonal collection of small-batch jars mirroring our shifting garden forage.",
+    image: "/images/illustrations/honey-dipper-1.webp",
   },
   // 2. The Boxwoods Apothecary & Home Line
   {
@@ -77,6 +80,7 @@ export const products: Product[] = [
     group: "hardware",
     price: 895,
     copy: "Outfitted with integrated BroodMinder telemetry sensors for inspired backyard conservationists.",
+    image: "/images/illustrations/hive-box-wide.webp",
   },
   {
     slug: "smart-starter-kit",
@@ -84,5 +88,6 @@ export const products: Product[] = [
     group: "hardware",
     price: 420,
     copy: "Luxury protective apparel and everything a new backyard beekeeper needs to begin, sensor-ready.",
+    image: "/images/illustrations/hive-cottage.webp",
   },
 ];
