@@ -68,9 +68,19 @@ export default function Education() {
         className="pointer-events-none object-cover opacity-[0.05]"
       />
       <section className="relative mx-auto max-w-6xl px-6 py-16">
-        <h1 className="font-display text-3xl text-ink-deep sm:text-4xl">
-          Learn With Us
-        </h1>
+        <div className="flex flex-wrap items-center justify-between gap-6">
+          <h1 className="font-display text-3xl text-ink-deep sm:text-4xl">
+            Learn With Us
+          </h1>
+          <Image
+            src="/images/illustrations/hive-box-wide.webp"
+            alt=""
+            width={1600}
+            height={731}
+            aria-hidden
+            className="hidden w-56 sm:block"
+          />
+        </div>
 
         <div className="mt-10 grid gap-12 lg:grid-cols-2">
           <div>

@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import clsx from "clsx";
 import { useCart } from "@/lib/cart-context";
 import { products, type Product } from "@/lib/products";
 import PlaceholderImage from "@/components/PlaceholderImage";
@@ -29,22 +28,16 @@ const GROUPS: { key: Product["group"]; title: string; intro: string }[] = [
 
 function ProductCard({ product }: { product: Product }) {
   const { addToCart } = useCart();
-  const isIllustration = product.image?.includes("/illustrations/");
 
   return (
     <div className="flex flex-col overflow-hidden rounded-lg border border-umber/15 bg-white/60">
       {product.image ? (
-        <div
-          className={clsx(
-            "relative aspect-[4/3] w-full",
-            isIllustration && "bg-cream"
-          )}
-        >
+        <div className="relative aspect-[4/3] w-full">
           <Image
             src={product.image}
             alt={product.name}
             fill
-            className={isIllustration ? "object-contain p-6" : "object-cover"}
+            className="object-cover"
           />
         </div>
       ) : (
@@ -74,15 +67,36 @@ export default function Shop() {
   return (
     <div className="pt-16">
       <section className="bg-umber/10 px-6 py-16">
-        <div className="mx-auto max-w-6xl text-center">
-          <h1 className="font-display text-3xl text-ink-deep sm:text-4xl">
-            Honey, Straight From Our Garden
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-ink-deep/70">
-            What you taste changes with the seasons — tulip poplar in spring,
-            sourwood by summer. Every jar comes from the hives you can watch
-            online, so you always know exactly where it came from.
-          </p>
+        <div className="mx-auto flex max-w-5xl items-center justify-center gap-10">
+          <div className="hidden w-32 shrink-0 md:block">
+            <Image
+              src="/images/illustrations/comb-block.webp"
+              alt=""
+              width={1200}
+              height={930}
+              aria-hidden
+            />
+          </div>
+          <div className="max-w-2xl text-center">
+            <h1 className="font-display text-3xl text-ink-deep sm:text-4xl">
+              Honey, Straight From Our Garden
+            </h1>
+            <p className="mx-auto mt-4 text-ink-deep/70">
+              What you taste changes with the seasons — tulip poplar in
+              spring, sourwood by summer. Every jar comes from the hives you
+              can watch online, so you always know exactly where it came
+              from.
+            </p>
+          </div>
+          <div className="hidden w-40 shrink-0 md:block">
+            <Image
+              src="/images/illustrations/honey-dipper-1.webp"
+              alt=""
+              width={1200}
+              height={338}
+              aria-hidden
+            />
+          </div>
         </div>
       </section>
 

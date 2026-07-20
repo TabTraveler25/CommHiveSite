@@ -46,17 +46,31 @@ export default function BuzzHub() {
   return (
     <div className="bg-cream pt-16">
       <section className="mx-auto max-w-6xl px-6 py-16">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-olive">
-          Live From Our Garden at Boxwoods
-        </p>
-        <h1 className="mt-4 font-display text-3xl text-ink-deep sm:text-4xl">
-          Come Watch the Hive at Work
-        </h1>
-        <p className="mt-4 max-w-2xl text-ink-deep/75">
-          We tucked some sensors inside the hive (the bees don&apos;t mind)
-          so you can see what&apos;s happening in real time — no bee suit
-          required, just pull up the dashboard. It&apos;s weirdly relaxing.
-        </p>
+        <div className="flex items-center justify-between gap-8">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-olive">
+              Live From Our Garden at Boxwoods
+            </p>
+            <h1 className="mt-4 font-display text-3xl text-ink-deep sm:text-4xl">
+              Come Watch the Hive at Work
+            </h1>
+            <p className="mt-4 max-w-2xl text-ink-deep/75">
+              We tucked some sensors inside the hive (the bees don&apos;t
+              mind) so you can see what&apos;s happening in real time — no
+              bee suit required, just pull up the dashboard. It&apos;s
+              weirdly relaxing.
+            </p>
+          </div>
+          <div className="hidden w-20 shrink-0 md:block">
+            <Image
+              src="/images/illustrations/honey-jar-wrapped.webp"
+              alt=""
+              width={1200}
+              height={2082}
+              aria-hidden
+            />
+          </div>
+        </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {[
