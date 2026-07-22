@@ -17,6 +17,39 @@ export default function Hero() {
       <div className="absolute inset-0 bg-ink-deep/55" />
 
       <Image
+        src="/images/illustrations/honeycomb-branch-1.webp"
+        alt=""
+        width={700}
+        height={253}
+        aria-hidden
+        className="pointer-events-none absolute -right-16 -top-6 hidden w-64 rotate-6 opacity-90 sm:block sm:w-80 md:w-[26rem]"
+      />
+      <Image
+        src="/images/illustrations/bee-2.webp"
+        alt=""
+        width={900}
+        height={632}
+        aria-hidden
+        className="pointer-events-none absolute left-[6%] top-20 hidden w-16 -rotate-12 sm:block sm:w-20 md:top-28 md:w-24"
+      />
+      <Image
+        src="/images/illustrations/bee-4.webp"
+        alt=""
+        width={2000}
+        height={1741}
+        aria-hidden
+        className="pointer-events-none absolute right-[10%] top-40 hidden w-20 rotate-12 sm:block sm:w-24 md:w-28"
+      />
+      <Image
+        src="/images/illustrations/bee-1.webp"
+        alt=""
+        width={1856}
+        height={1750}
+        aria-hidden
+        className="pointer-events-none absolute bottom-[26rem] left-[16%] hidden w-16 rotate-6 sm:block md:w-20"
+      />
+
+      <Image
         src="/images/illustrations/flower-patch-gold.webp"
         alt=""
         width={900}
@@ -30,7 +63,7 @@ export default function Hero() {
         width={900}
         height={1040}
         aria-hidden
-        className="pointer-events-none absolute right-4 bottom-0 hidden w-40 sm:block md:w-56"
+        className="pointer-events-none absolute -right-10 bottom-0 hidden w-64 sm:block md:w-80"
       />
 
       <div className="relative mx-auto max-w-4xl px-6 py-24 text-center sm:py-32">
@@ -48,7 +81,17 @@ export default function Hero() {
           hive-to-table treasures. It doesn&apos;t get more local than this.
         </p>
 
-        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <div className="relative mx-auto mt-8 h-10 w-full max-w-md">
+          <Image
+            src="/images/illustrations/honey-drip.webp"
+            alt=""
+            fill
+            aria-hidden
+            className="pointer-events-none object-contain opacity-80"
+          />
+        </div>
+
+        <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
             href="/buzz-hub"
             className="w-full rounded-full bg-gold px-8 py-3 text-sm font-semibold text-ink-deep transition-colors hover:bg-gold-bright sm:w-auto"
