@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Hero() {
@@ -14,6 +15,23 @@ export default function Hero() {
         <source src="/videos/hero-bees.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-ink-deep/55" />
+
+      <Image
+        src="/images/illustrations/flower-patch-gold.webp"
+        alt=""
+        width={900}
+        height={1158}
+        aria-hidden
+        className="pointer-events-none absolute -left-10 bottom-0 hidden w-48 sm:block md:w-64"
+      />
+      <Image
+        src="/images/illustrations/hive-on-stilts.webp"
+        alt=""
+        width={900}
+        height={1040}
+        aria-hidden
+        className="pointer-events-none absolute right-4 bottom-0 hidden w-40 sm:block md:w-56"
+      />
 
       <div className="relative mx-auto max-w-4xl px-6 py-24 text-center sm:py-32">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-olive">
