@@ -53,7 +53,7 @@ export default function Hero() {
         src="/images/illustrations/flower-patch-gold.webp"
         alt=""
         width={900}
-        height={1158}
+        height={1272}
         aria-hidden
         className="pointer-events-none absolute -left-10 bottom-0 hidden w-48 sm:block md:w-64"
       />
