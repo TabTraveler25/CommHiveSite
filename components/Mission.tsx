@@ -6,12 +6,13 @@ export default function Mission() {
   return (
     <div className="relative bg-cream pt-16">
       <Image
-        src="/images/illustrations/pattern-bees-gold.webp"
+        src="/images/illustrations/pattern-mission-honey.webp"
         alt=""
         fill
         aria-hidden
-        className="pointer-events-none object-cover opacity-[0.05]"
+        className="pointer-events-none object-cover"
       />
+      <div className="pointer-events-none absolute inset-0 bg-cream/80" />
       <section className="relative mx-auto max-w-4xl px-6 py-16 text-center">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-olive">
           Why We&apos;re Here
