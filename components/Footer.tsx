@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -72,17 +73,23 @@ export default function Footer() {
 
           <div>
             <h3 className="font-display text-xl text-gold-bright">
-              Flexible Investment
+              Garden Concierge
             </h3>
             <p className="mt-3 text-sm text-cream/70">
-              Buy Now, Pay Later options available at checkout for premium
-              hive equipment and annual Garden Concierge service agreements.
+              Thinking about hosting a hive of your own? Our team handles
+              setup, inspections, and care — no experience required.
             </p>
+            <Link
+              href="/concierge"
+              className="mt-3 inline-block text-sm font-semibold text-gold-bright underline-offset-4 hover:underline"
+            >
+              Learn About Garden Concierge
+            </Link>
           </div>
         </div>
 
         <div className="mt-12 border-t border-cream/10 pt-6 text-xs text-cream/50">
-          © 2026 Boxwoods Community Beehive Apiary. All Rights Reserved. Clean
+          © 2026 Boxwoods Community Beehive. All Rights Reserved. Clean
           UI Architecture.
         </div>
       </div>

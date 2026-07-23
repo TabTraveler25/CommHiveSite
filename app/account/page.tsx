@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Account | Boxwoods Community Beehive Apiary",
+  title: "Account | Boxwoods Community Beehive",
 };
 
 export default function AccountPage() {

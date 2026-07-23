@@ -11,7 +11,6 @@ import CartDrawer from "@/components/CartDrawer";
 const NAV_ITEMS = [
   { href: "/buzz-hub", label: "The Buzz Hub" },
   { href: "/shop", label: "Garden Gold Shop" },
-  { href: "/concierge", label: "Garden Concierge" },
   { href: "/education", label: "Sanctuary Education" },
 ];
 
@@ -29,7 +28,7 @@ export default function Header() {
             onClick={() => setMobileNavOpen(false)}
             className="font-display text-lg tracking-wide text-gold-bright"
           >
-            Boxwoods <span className="text-cream/90">Community Beehive Apiary</span>
+            Boxwoods <span className="text-cream/90">Community Beehive</span>
           </Link>
 
           <nav className="hidden items-center gap-8 md:flex">

@@ -18,7 +18,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Boxwoods Community Beehive Apiary",
+  title: "Boxwoods Community Beehive",
   description:
     "A living sanctuary where biological rhythm meets hyper-local luxury — live hive telemetry, Garden Gold honey, and managed backyard apiaries.",
 };

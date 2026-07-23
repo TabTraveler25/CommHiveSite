@@ -1,10 +1,22 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 
 export default function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.5;
+    }
+  }, []);
+
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden bg-ink-deep pt-16">
       <video
+        ref={videoRef}
         autoPlay
         muted
         loop
@@ -14,7 +26,7 @@ export default function Hero() {
       >
         <source src="/videos/hero-bees.mp4" type="video/mp4" />
       </video>
-      <div className="absolute inset-0 bg-ink-deep/55" />
+      <div className="absolute inset-0 bg-ink-deep/75" />
 
       <Image
         src="/images/illustrations/honeycomb-branch-1.webp"
@@ -63,7 +75,7 @@ export default function Hero() {
         width={900}
         height={1040}
         aria-hidden
-        className="pointer-events-none absolute -right-10 bottom-0 hidden w-64 sm:block md:w-80"
+        className="pointer-events-none absolute -right-10 -bottom-16 hidden w-64 sm:block sm:-bottom-20 md:w-80"
       />
 
       <div className="relative mx-auto max-w-4xl px-6 py-24 text-center sm:py-32">
@@ -81,15 +93,14 @@ export default function Hero() {
           hive-to-table treasures. It doesn&apos;t get more local than this.
         </p>
 
-        <div className="relative mx-auto mt-8 h-10 w-full max-w-md">
-          <Image
-            src="/images/illustrations/honey-drip.webp"
-            alt=""
-            fill
-            aria-hidden
-            className="pointer-events-none object-contain opacity-80"
-          />
-        </div>
+        <Image
+          src="/images/illustrations/sunflower-divider-white.webp"
+          alt=""
+          width={2072}
+          height={918}
+          aria-hidden
+          className="pointer-events-none mx-auto mt-8 h-auto w-64 opacity-90 sm:w-80"
+        />
 
         <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
