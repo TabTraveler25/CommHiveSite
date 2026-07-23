@@ -3,7 +3,7 @@ import Image from "next/image";
 const ROLES = [
   {
     title: "The Queen",
-    body: "She's the only one laying eggs — up to 2,000 a day at her peak — and the whole colony organizes itself around keeping her healthy.",
+    body: "She's the only one laying eggs (up to 2,000 a day at her peak), and the whole colony organizes itself around keeping her healthy.",
   },
   {
     title: "The Workers",
@@ -37,8 +37,8 @@ export default function MeetTheNeighbors() {
           <p className="mt-6 text-ink-deep/75">
             Every jar of Garden Gold starts with a few hundred thousand very
             small neighbors. Each hive at Boxwoods is its own tiny
-            civilization — tens of thousands of bees, one queen, and a whole
-            lot of teamwork — living right here in the garden, going about
+            civilization: tens of thousands of bees, one queen, and a whole
+            lot of teamwork living right here in the garden, going about
             their day while we go about ours.
           </p>
         </div>
@@ -86,11 +86,10 @@ export default function MeetTheNeighbors() {
               not just a bee problem.
             </p>
             <p className="mt-4 text-ink-deep/75">
-              A managed hive tucked into a neighborhood garden — with
-              regular inspections, mite treatment, and forage nearby — is one
-              of the more effective things a community can do about it.
-              That&apos;s the whole reason Boxwoods exists: happier, healthier
-              bees, right in the middle of everyday life.
+              A managed hive tucked into a neighborhood garden,
+              complete with regular inspections, mite treatment,
+              and nearby forage, is one of the most
+              effective actions a community can take.
             </p>
           </div>
         </div>
