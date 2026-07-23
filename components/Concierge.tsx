@@ -122,7 +122,7 @@ export default function Concierge() {
             </form>
           )}
           <Link
-            href="/education"
+            href="/buzz-hub/mission"
             className="mt-4 inline-block text-sm font-medium text-gold-deep underline underline-offset-4 hover:text-gold"
           >
             Learn About Bee Boot Camps &amp; 1-on-1 Mentorship

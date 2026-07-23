@@ -31,6 +31,53 @@ export const events: SanctuaryEvent[] = [
   },
 ];
 
+export type BlogPost = {
+  slug: string;
+  title: string;
+  date: string;
+  excerpt: string;
+  body: string[];
+};
+
+export const blogPosts: BlogPost[] = [
+  {
+    slug: "welcome-to-the-nectar-flow",
+    title: "Welcome to the Nectar Flow",
+    date: "2026-06-18",
+    excerpt:
+      "Why late spring is the busiest — and sweetest — stretch of the year for our hives.",
+    body: [
+      "For a few weeks each year, the gardens around Boxwoods hit what beekeepers call \"the nectar flow\" — the stretch when blooms are so abundant that foragers can barely keep up.",
+      "You'll notice it before we tell you: more bees in the air, longer lines at the hive entrance in the evening, and a noticeably heavier hum coming from the boxes.",
+      "It's also when most of the honey you'll see in the shop actually gets made, capped, and cured. Everything after this is really just patient waiting.",
+    ],
+  },
+  {
+    slug: "what-a-mite-inspection-actually-looks-like",
+    title: "What a Mite Inspection Actually Looks Like",
+    date: "2026-05-22",
+    excerpt:
+      "A behind-the-veil look at the unglamorous, essential work of keeping a colony healthy.",
+    body: [
+      "Varroa mites are, without much competition, the single biggest threat to a backyard hive. They're small, they spread fast, and left unchecked they can take down a colony in a season.",
+      "Our inspections involve a sugar-roll sample, a quick count under a hand lens, and a treatment plan if the numbers run high — usually organic acids timed around the brood cycle.",
+      "None of it is glamorous. All of it is the difference between a colony that makes it through winter and one that doesn't.",
+    ],
+  },
+  {
+    slug: "why-we-plant-for-november-not-just-april",
+    title: "Why We Plant for November, Not Just April",
+    date: "2026-04-10",
+    excerpt:
+      "The unglamorous late-bloomers that keep a hive fed after the big spring flush ends.",
+    body: [
+      "It's easy to plant for spring — everything blooms at once and the garden looks incredible. The harder, more important work is planting for the gaps.",
+      "Late-season goldenrod and aster carry a colony through the fall dearth, when little else is blooming and bees are building up stores for winter.",
+      "So when you see a slightly scraggly patch of goldenrod that doesn't fit the rest of the garden's design, that's not an oversight — that's next winter's insurance.",
+    ],
+  },
+];
+
 export type FaqItem = {
   question: string;
   answer: string;

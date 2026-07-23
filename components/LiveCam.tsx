@@ -40,7 +40,7 @@ const STAT_BEES = [
   "/images/illustrations/bee-6.webp",
 ];
 
-export default function BuzzHub() {
+export default function LiveCam() {
   const { hiveTemp, foragingLevel, growthLbs, series } = useTelemetry();
 
   return (

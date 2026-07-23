@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import BuzzHub from "@/components/BuzzHub";
+import BuzzHubOverview from "@/components/BuzzHubOverview";
 
 export const metadata: Metadata = {
   title: "The Buzz Hub | Boxwoods Community Beehive",
 };
 
 export default function BuzzHubPage() {
-  return <BuzzHub />;
+  return <BuzzHubOverview />;
 }
