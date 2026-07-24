@@ -69,6 +69,12 @@ export default function Footer() {
               Proudly partnering with the Metro Atlanta Beekeepers Association
               for regional pollinator conservation and urban biodiversity.
             </p>
+            <Link
+              href="/buzz-hub/mission"
+              className="mt-3 inline-block text-sm font-semibold text-gold-bright underline-offset-4 hover:underline"
+            >
+              Learn About Our Local Impact
+            </Link>
           </div>
 
           <div>

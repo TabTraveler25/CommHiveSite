@@ -53,9 +53,9 @@ const HUB_CARDS = [
     title: "Upcoming Events",
     blurb:
       "Workshops, tours, and hands-on hive time — open to the whole neighborhood.",
-    image: "/images/illustrations/hive-box-detail.webp",
-    imageWidth: 1400,
-    imageHeight: 950,
+    image: "/images/illustrations/honeycomb-cluster.webp",
+    imageWidth: 1200,
+    imageHeight: 1301,
   },
 ];
 

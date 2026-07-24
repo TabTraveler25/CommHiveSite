@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
+import AnimatedBees from "@/components/AnimatedBees";
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -36,30 +37,7 @@ export default function Hero() {
         aria-hidden
         className="pointer-events-none absolute -right-16 -top-6 hidden w-64 rotate-6 opacity-90 sm:block sm:w-80 md:w-[26rem]"
       />
-      <Image
-        src="/images/illustrations/bee-2.webp"
-        alt=""
-        width={900}
-        height={632}
-        aria-hidden
-        className="pointer-events-none absolute left-[6%] top-20 hidden w-16 -rotate-12 sm:block sm:w-20 md:top-28 md:w-24"
-      />
-      <Image
-        src="/images/illustrations/bee-4.webp"
-        alt=""
-        width={2000}
-        height={1741}
-        aria-hidden
-        className="pointer-events-none absolute right-[10%] top-40 hidden w-20 rotate-12 sm:block sm:w-24 md:w-28"
-      />
-      <Image
-        src="/images/illustrations/bee-1.webp"
-        alt=""
-        width={1856}
-        height={1750}
-        aria-hidden
-        className="pointer-events-none absolute bottom-[26rem] left-[16%] hidden w-16 rotate-6 sm:block md:w-20"
-      />
+      <AnimatedBees />
 
       <Image
         src="/images/illustrations/flower-patch-gold.webp"
@@ -79,7 +57,7 @@ export default function Hero() {
       />
 
       <div className="relative mx-auto max-w-4xl px-6 py-24 text-center sm:py-32">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-olive">
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white">
           Right in the Neighborhood
         </p>
         <h1 className="mt-6 font-display text-4xl leading-tight text-cream sm:text-5xl md:text-6xl">
@@ -94,12 +72,12 @@ export default function Hero() {
         </p>
 
         <Image
-          src="/images/illustrations/sunflower-divider-white.webp"
+          src="/images/illustrations/sunflower-divider-color.webp"
           alt=""
           width={2072}
           height={918}
           aria-hidden
-          className="pointer-events-none mx-auto mt-8 h-auto w-64 opacity-90 sm:w-80"
+          className="pointer-events-none mx-auto mt-8 h-auto w-28 sm:w-32"
         />
 
         <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">

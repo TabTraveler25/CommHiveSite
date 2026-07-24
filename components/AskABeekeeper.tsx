@@ -34,7 +34,7 @@ function findAnswer(question: string) {
   return bestAnswer ?? FALLBACK_ANSWER;
 }
 
-function ChatAssistant() {
+function ChatScene() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
@@ -63,65 +63,63 @@ function ChatAssistant() {
   };
 
   return (
-    <div className="rounded-xl border border-gold-deep/20 bg-white/70">
-      <div className="flex items-center gap-3 border-b border-gold-deep/15 px-5 py-4">
+    <div className="relative mt-10 flex flex-col-reverse items-center gap-6 sm:flex-row sm:items-end sm:justify-center sm:gap-10">
+      <div className="w-full max-w-md">
+        <div className="flex max-h-80 flex-col gap-3 overflow-y-auto">
+          {messages.map((message, i) => (
+            <p
+              key={i}
+              className={clsx(
+                "max-w-[85%] rounded-2xl px-4 py-2 text-sm shadow-sm",
+                message.role === "assistant"
+                  ? "self-start bg-white/80 text-ink-deep"
+                  : "self-end bg-gold text-ink-deep"
+              )}
+            >
+              {message.text}
+            </p>
+          ))}
+          {thinking && (
+            <p className="self-start rounded-2xl bg-white/80 px-4 py-2 text-sm text-ink-deep/50 shadow-sm">
+              Typing…
+            </p>
+          )}
+        </div>
+
+        <form
+          onSubmit={handleSubmit}
+          className="mt-4 flex items-center gap-2"
+        >
+          <label htmlFor="beekeeper-question" className="sr-only">
+            Ask a question
+          </label>
+          <input
+            id="beekeeper-question"
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Ask about hive hosting, honey, mite care..."
+            className="w-full rounded-full border border-umber/20 bg-white/90 px-4 py-2.5 text-sm shadow-sm focus:border-gold-deep focus:outline-none"
+          />
+          <button
+            type="submit"
+            aria-label="Send question"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold-bright text-ink-deep shadow-sm transition-colors hover:bg-gold"
+          >
+            <Send className="h-4 w-4" />
+          </button>
+        </form>
+      </div>
+
+      <div className="w-36 shrink-0 sm:w-56">
         <Image
           src="/images/illustrations/beekeeper-portrait.webp"
           alt="Watercolor portrait of a beekeeper in a veil"
           width={1200}
           height={1419}
-          className="h-10 w-10 rounded-full object-cover object-top"
+          className="h-auto w-full"
         />
-        <div>
-          <p className="font-medium text-ink-deep">Ask a Beekeeper</p>
-          <p className="text-xs text-ink-deep/50">Usually replies in a few seconds</p>
-        </div>
       </div>
-
-      <div className="flex max-h-80 flex-col gap-3 overflow-y-auto px-5 py-4">
-        {messages.map((message, i) => (
-          <p
-            key={i}
-            className={clsx(
-              "max-w-[85%] rounded-2xl px-4 py-2 text-sm",
-              message.role === "assistant"
-                ? "self-start bg-umber/10 text-ink-deep"
-                : "self-end bg-gold text-ink-deep"
-            )}
-          >
-            {message.text}
-          </p>
-        ))}
-        {thinking && (
-          <p className="self-start rounded-2xl bg-umber/10 px-4 py-2 text-sm text-ink-deep/50">
-            Typing…
-          </p>
-        )}
-      </div>
-
-      <form
-        onSubmit={handleSubmit}
-        className="flex items-center gap-2 border-t border-gold-deep/15 px-5 py-4"
-      >
-        <label htmlFor="beekeeper-question" className="sr-only">
-          Ask a question
-        </label>
-        <input
-          id="beekeeper-question"
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask about hive hosting, honey, mite care..."
-          className="w-full rounded-full border border-umber/25 bg-white px-4 py-2 text-sm focus:border-gold-deep focus:outline-none"
-        />
-        <button
-          type="submit"
-          aria-label="Send question"
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold-bright text-ink-deep transition-colors hover:bg-gold"
-        >
-          <Send className="h-4 w-4" />
-        </button>
-      </form>
     </div>
   );
 }
@@ -171,9 +169,26 @@ function FaqAccordion() {
 
 export default function AskABeekeeper() {
   return (
-    <div className="bg-cream pt-16">
-      <section className="mx-auto max-w-5xl px-6 py-16">
-        <div className="text-center">
+    <div className="bg-cream">
+      <section className="relative overflow-hidden px-6 pb-10 pt-24 sm:pb-14">
+        <Image
+          src="/images/illustrations/bee-3.webp"
+          alt=""
+          width={900}
+          height={629}
+          aria-hidden
+          className="pointer-events-none absolute left-[8%] top-16 hidden w-14 -rotate-12 opacity-70 sm:block"
+        />
+        <Image
+          src="/images/illustrations/honeycomb-cell.webp"
+          alt=""
+          width={1200}
+          height={1200}
+          aria-hidden
+          className="pointer-events-none absolute -right-8 bottom-4 hidden w-32 opacity-40 sm:block"
+        />
+
+        <div className="relative mx-auto max-w-3xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-olive">
             Got a Question?
           </p>
@@ -182,14 +197,17 @@ export default function AskABeekeeper() {
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-ink-deep/75">
             Try our assistant for a quick answer, or browse the questions we
-            hear most.
+            hear most below.
           </p>
         </div>
 
-        <div className="mt-10 grid gap-10 lg:grid-cols-2">
-          <ChatAssistant />
-          <FaqAccordion />
+        <div className="relative mx-auto max-w-3xl">
+          <ChatScene />
         </div>
+      </section>
+
+      <section className="mx-auto max-w-3xl px-6 pb-16">
+        <FaqAccordion />
       </section>
     </div>
   );

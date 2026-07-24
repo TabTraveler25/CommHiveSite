@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { blogPosts } from "@/lib/content";
 
@@ -21,8 +22,9 @@ export default function Blog() {
             Our Blog
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-ink-deep/75">
-            Dispatches from inside the hives — what&apos;s blooming, what
-            we&apos;re inspecting, and what we&apos;re learning along the way.
+            Dispatches from inside the hives — photos, video, and stories on
+            what&apos;s blooming, what we&apos;re inspecting, and what
+            we&apos;re learning along the way.
           </p>
         </div>
 
@@ -31,15 +33,26 @@ export default function Blog() {
             <Link
               key={post.slug}
               href={`/buzz-hub/blog/${post.slug}`}
-              className="block rounded-lg border border-umber/15 bg-white/60 p-6 transition-colors hover:bg-white/80"
+              className="flex items-center gap-5 rounded-lg border border-umber/15 bg-white/60 p-4 transition-colors hover:bg-white/80 sm:p-6"
             >
-              <p className="text-xs font-semibold uppercase tracking-wide text-gold-deep">
-                {formatDate(post.date)}
-              </p>
-              <h2 className="mt-1 font-display text-xl text-ink-deep">
-                {post.title}
-              </h2>
-              <p className="mt-2 text-sm text-ink-deep/70">{post.excerpt}</p>
+              <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md bg-umber/5 sm:h-24 sm:w-24">
+                <Image
+                  src={post.media.src}
+                  alt=""
+                  fill
+                  aria-hidden
+                  className="object-contain p-2"
+                />
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-gold-deep">
+                  {formatDate(post.date)}
+                </p>
+                <h2 className="mt-1 font-display text-xl text-ink-deep">
+                  {post.title}
+                </h2>
+                <p className="mt-2 text-sm text-ink-deep/70">{post.excerpt}</p>
+              </div>
             </Link>
           ))}
         </div>

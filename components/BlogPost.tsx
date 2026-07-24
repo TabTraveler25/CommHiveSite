@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import type { BlogPost as BlogPostType } from "@/lib/content";
@@ -29,7 +30,17 @@ export default function BlogPost({ post }: { post: BlogPostType }) {
           {post.title}
         </h1>
 
-        <div className="mt-6 flex flex-col gap-4">
+        <div className="relative mt-8 flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-xl bg-umber/5 sm:aspect-video">
+          <Image
+            src={post.media.src}
+            alt=""
+            fill
+            aria-hidden
+            className="object-contain p-10"
+          />
+        </div>
+
+        <div className="mt-8 flex flex-col gap-4">
           {post.body.map((paragraph, i) => (
             <p key={i} className="text-ink-deep/75">
               {paragraph}

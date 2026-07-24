@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ShoppingCart, User, Menu, X, ChevronDown } from "lucide-react";
+import { ShoppingCart, User, Menu, X, ChevronDown, ExternalLink } from "lucide-react";
 import clsx from "clsx";
 import { useCart } from "@/lib/cart-context";
 import CartDrawer from "@/components/CartDrawer";
@@ -16,6 +17,8 @@ const BUZZ_HUB_CHILDREN = [
   { href: "/buzz-hub/blog", label: "Our Blog" },
   { href: "/buzz-hub/upcoming-events", label: "Upcoming Events" },
 ];
+
+const BOXWOODS_ATLANTA_URL = "https://www.boxwoodsatlanta.com";
 
 export default function Header() {
   const pathname = usePathname();
@@ -51,102 +54,121 @@ export default function Header() {
           <Link
             href="/"
             onClick={closeAll}
-            className="font-display text-lg tracking-wide text-gold-bright"
+            className="flex items-center gap-2 font-display text-lg tracking-wide text-gold-bright"
           >
+            <Image
+              src="/images/illustrations/brand-icon-bee.webp"
+              alt=""
+              width={1907}
+              height={2000}
+              aria-hidden
+              className="h-7 w-auto"
+            />
             Boxwoods <span className="text-cream/90">Community Beehive</span>
           </Link>
 
-          <nav className="hidden items-center gap-8 md:flex">
-            <div ref={hubMenuRef} className="relative">
-              <button
-                type="button"
-                onClick={() => setHubMenuOpen((open) => !open)}
-                aria-expanded={hubMenuOpen}
+          <div className="flex items-center gap-8">
+            <nav className="hidden items-center gap-8 md:flex">
+              <div ref={hubMenuRef} className="relative">
+                <button
+                  type="button"
+                  onClick={() => setHubMenuOpen((open) => !open)}
+                  aria-expanded={hubMenuOpen}
+                  className={clsx(
+                    "flex items-center gap-1 text-sm font-medium tracking-wide transition-colors hover:text-gold-bright",
+                    isBuzzHubActive ? "text-gold-bright" : "text-cream/85"
+                  )}
+                >
+                  The Buzz Hub
+                  <ChevronDown
+                    className={clsx(
+                      "h-3.5 w-3.5 transition-transform",
+                      hubMenuOpen && "rotate-180"
+                    )}
+                  />
+                </button>
+                {hubMenuOpen && (
+                  <div className="absolute left-0 top-full mt-3 w-56 overflow-hidden rounded-lg border border-gold-deep/20 bg-ink-deep shadow-xl">
+                    <Link
+                      href="/buzz-hub"
+                      onClick={closeAll}
+                      className="block px-4 py-2.5 text-sm font-semibold text-gold-bright hover:bg-gold-deep/10"
+                    >
+                      Hub Overview
+                    </Link>
+                    <div className="border-t border-gold-deep/10" />
+                    {BUZZ_HUB_CHILDREN.map((child) => (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        onClick={closeAll}
+                        className={clsx(
+                          "block px-4 py-2.5 text-sm transition-colors hover:bg-gold-deep/10 hover:text-gold-bright",
+                          pathname === child.href ? "text-gold-bright" : "text-cream/85"
+                        )}
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <Link
+                href="/shop"
                 className={clsx(
-                  "flex items-center gap-1 text-sm font-medium tracking-wide transition-colors hover:text-gold-bright",
-                  isBuzzHubActive ? "text-gold-bright" : "text-cream/85"
+                  "text-sm font-medium tracking-wide transition-colors hover:text-gold-bright",
+                  pathname === "/shop" ? "text-gold-bright" : "text-cream/85"
                 )}
               >
-                The Buzz Hub
-                <ChevronDown
-                  className={clsx(
-                    "h-3.5 w-3.5 transition-transform",
-                    hubMenuOpen && "rotate-180"
-                  )}
-                />
+                Garden Gold Shop
+              </Link>
+            </nav>
+
+            <div className="flex items-center gap-5">
+              <Link
+                href="/account"
+                className="hidden items-center gap-1.5 text-sm text-cream/85 transition-colors hover:text-gold-bright sm:flex"
+              >
+                <User className="h-4 w-4" />
+                Account
+              </Link>
+              <a
+                href={BOXWOODS_ATLANTA_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden items-center gap-1.5 rounded-full border border-gold-deep/40 px-3 py-1.5 text-xs font-medium text-cream/85 transition-colors hover:border-gold-bright hover:text-gold-bright lg:flex"
+              >
+                Boxwoods Atlanta
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+              <button
+                type="button"
+                onClick={openCart}
+                aria-label="Open cart"
+                className="relative text-gold-bright transition-transform hover:scale-105"
+              >
+                <ShoppingCart className="h-5 w-5" />
+                {itemCount > 0 && (
+                  <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-gold-bright text-[10px] font-bold text-ink-deep">
+                    {itemCount}
+                  </span>
+                )}
               </button>
-              {hubMenuOpen && (
-                <div className="absolute left-0 top-full mt-3 w-56 overflow-hidden rounded-lg border border-gold-deep/20 bg-ink-deep shadow-xl">
-                  <Link
-                    href="/buzz-hub"
-                    onClick={closeAll}
-                    className="block px-4 py-2.5 text-sm font-semibold text-gold-bright hover:bg-gold-deep/10"
-                  >
-                    Hub Overview
-                  </Link>
-                  <div className="border-t border-gold-deep/10" />
-                  {BUZZ_HUB_CHILDREN.map((child) => (
-                    <Link
-                      key={child.href}
-                      href={child.href}
-                      onClick={closeAll}
-                      className={clsx(
-                        "block px-4 py-2.5 text-sm transition-colors hover:bg-gold-deep/10 hover:text-gold-bright",
-                        pathname === child.href ? "text-gold-bright" : "text-cream/85"
-                      )}
-                    >
-                      {child.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
+              <button
+                type="button"
+                onClick={() => setMobileNavOpen((open) => !open)}
+                aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
+                aria-expanded={mobileNavOpen}
+                className="text-gold-bright md:hidden"
+              >
+                {mobileNavOpen ? (
+                  <X className="h-5 w-5" />
+                ) : (
+                  <Menu className="h-5 w-5" />
+                )}
+              </button>
             </div>
-
-            <Link
-              href="/shop"
-              className={clsx(
-                "text-sm font-medium tracking-wide transition-colors hover:text-gold-bright",
-                pathname === "/shop" ? "text-gold-bright" : "text-cream/85"
-              )}
-            >
-              Garden Gold Shop
-            </Link>
-          </nav>
-
-          <div className="flex items-center gap-5">
-            <Link
-              href="/account"
-              className="hidden items-center gap-1.5 text-sm text-cream/85 transition-colors hover:text-gold-bright sm:flex"
-            >
-              <User className="h-4 w-4" />
-              Account
-            </Link>
-            <button
-              type="button"
-              onClick={openCart}
-              aria-label="Open cart"
-              className="relative text-gold-bright transition-transform hover:scale-105"
-            >
-              <ShoppingCart className="h-5 w-5" />
-              {itemCount > 0 && (
-                <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-gold-bright text-[10px] font-bold text-ink-deep">
-                  {itemCount}
-                </span>
-              )}
-            </button>
-            <button
-              type="button"
-              onClick={() => setMobileNavOpen((open) => !open)}
-              aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
-              aria-expanded={mobileNavOpen}
-              className="text-gold-bright md:hidden"
-            >
-              {mobileNavOpen ? (
-                <X className="h-5 w-5" />
-              ) : (
-                <Menu className="h-5 w-5" />
-              )}
-            </button>
           </div>
         </div>
 
@@ -222,6 +244,17 @@ export default function Header() {
                   <User className="h-4 w-4" />
                   Account
                 </Link>
+              </li>
+              <li>
+                <a
+                  href={BOXWOODS_ATLANTA_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-sm text-cream/85"
+                >
+                  Boxwoods Atlanta
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </a>
               </li>
             </ul>
           </nav>

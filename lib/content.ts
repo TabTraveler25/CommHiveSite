@@ -1,10 +1,10 @@
-export type SanctuaryEvent = {
+export type ClassEvent = {
   date: string;
   title: string;
   description: string;
 };
 
-export const events: SanctuaryEvent[] = [
+export const classes: ClassEvent[] = [
   {
     date: "2026-08-02",
     title: "Live Hive Inspection & Honey Extraction Workshop",
@@ -15,7 +15,7 @@ export const events: SanctuaryEvent[] = [
     date: "2026-08-16",
     title: "School Group Ecological Tour",
     description:
-      "A guided walk through the sanctuary garden and observation hives, built for K-8 classes and homeschool co-ops.",
+      "A guided walk through the garden and observation hives, built for K-8 classes and homeschool co-ops.",
   },
   {
     date: "2026-08-23",
@@ -31,12 +31,47 @@ export const events: SanctuaryEvent[] = [
   },
 ];
 
+export type SeasonalRelease = {
+  date: string;
+  title: string;
+  description: string;
+};
+
+export const seasonalReleases: SeasonalRelease[] = [
+  {
+    date: "2026-09-12",
+    title: "Sourwood Harvest Release",
+    description:
+      "This year's signature summer varietal, bottled straight from the frames you watched us pull.",
+  },
+  {
+    date: "2026-10-24",
+    title: "Velvet Creamed Honey — Fall Batch",
+    description:
+      "A small-batch spreadable run, crystallized on purpose for a smooth, buttery texture.",
+  },
+  {
+    date: "2026-12-05",
+    title: "Winter Gift Flight Pre-Order Opens",
+    description:
+      "Our curated 3-jar tasting flight, boxed for gifting — pre-orders open two weeks before it ships.",
+  },
+];
+
+export const HARVEST_DATE = "2026-09-12T09:00:00-04:00";
+
 export type BlogPost = {
   slug: string;
   title: string;
   date: string;
   excerpt: string;
   body: string[];
+  media: {
+    type: "image" | "video";
+    src: string;
+    width: number;
+    height: number;
+  };
 };
 
 export const blogPosts: BlogPost[] = [
@@ -46,6 +81,12 @@ export const blogPosts: BlogPost[] = [
     date: "2026-06-18",
     excerpt:
       "Why late spring is the busiest — and sweetest — stretch of the year for our hives.",
+    media: {
+      type: "image",
+      src: "/images/illustrations/honeycomb-cluster.webp",
+      width: 1200,
+      height: 1301,
+    },
     body: [
       "For a few weeks each year, the gardens around Boxwoods hit what beekeepers call \"the nectar flow\" — the stretch when blooms are so abundant that foragers can barely keep up.",
       "You'll notice it before we tell you: more bees in the air, longer lines at the hive entrance in the evening, and a noticeably heavier hum coming from the boxes.",
@@ -58,6 +99,12 @@ export const blogPosts: BlogPost[] = [
     date: "2026-05-22",
     excerpt:
       "A behind-the-veil look at the unglamorous, essential work of keeping a colony healthy.",
+    media: {
+      type: "image",
+      src: "/images/illustrations/comb-block.webp",
+      width: 1200,
+      height: 930,
+    },
     body: [
       "Varroa mites are, without much competition, the single biggest threat to a backyard hive. They're small, they spread fast, and left unchecked they can take down a colony in a season.",
       "Our inspections involve a sugar-roll sample, a quick count under a hand lens, and a treatment plan if the numbers run high — usually organic acids timed around the brood cycle.",
@@ -70,6 +117,12 @@ export const blogPosts: BlogPost[] = [
     date: "2026-04-10",
     excerpt:
       "The unglamorous late-bloomers that keep a hive fed after the big spring flush ends.",
+    media: {
+      type: "image",
+      src: "/images/illustrations/flower-patch-gold.webp",
+      width: 900,
+      height: 1272,
+    },
     body: [
       "It's easy to plant for spring — everything blooms at once and the garden looks incredible. The harder, more important work is planting for the gaps.",
       "Late-season goldenrod and aster carry a colony through the fall dearth, when little else is blooming and bees are building up stores for winter.",
