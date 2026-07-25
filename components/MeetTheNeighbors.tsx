@@ -2,22 +2,29 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Infinity as InfinityIcon, MapPin, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import clsx from "clsx";
 
 const GLANCE_STATS = [
+  {
+    label: "Peak Population",
+    value: "40,000–60,000",
+    detail:
+      "bees per active hive in midsummer, tapering down to just a few thousand through the winter cluster",
+    icon: "/images/icons/icon-apiary-stack.webp",
+  },
   {
     label: "Colony Lifespan",
     value: "Decades",
     detail:
       "individual bees come and go, but new generations and replacement queens keep a well-managed hive going indefinitely",
-    icon: InfinityIcon,
+    icon: "/images/icons/icon-apiary-cloud.webp",
   },
   {
     label: "Foraging Radius",
     value: "3 miles",
     detail: "in every direction — visiting 2M+ flowers for just one pound of honey",
-    icon: MapPin,
+    icon: "/images/icons/icon-honeycomb-bee.webp",
   },
 ];
 
@@ -103,35 +110,19 @@ const ROLES: Role[] = [
 function ColonyAtAGlance() {
   return (
     <div className="grid gap-6 sm:grid-cols-3">
-      <div className="relative overflow-hidden rounded-xl border border-gold-deep/20 bg-ink-deep p-6 text-center">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          aria-hidden
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-90 mix-blend-screen"
-        >
-          <source src="/videos/bee-swarm.mp4" type="video/mp4" />
-        </video>
-        <div className="relative">
-          <p className="font-display text-2xl text-gold-bright sm:text-3xl">
-            40,000–60,000
-          </p>
-          <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-cream/70">
-            Peak Population
-          </p>
-          <p className="mt-2 text-sm text-cream/70">
-            bees per active hive in midsummer
-          </p>
-        </div>
-      </div>
       {GLANCE_STATS.map((stat) => (
         <div
           key={stat.label}
           className="rounded-xl border border-gold-deep/20 bg-white/70 p-6 text-center"
         >
-          <stat.icon className="mx-auto h-6 w-6 text-gold-deep" />
+          <Image
+            src={stat.icon}
+            alt=""
+            width={130}
+            height={130}
+            aria-hidden
+            className="mx-auto h-10 w-10 object-contain"
+          />
           <p className="mt-3 font-display text-2xl text-gold-deep sm:text-3xl">
             {stat.value}
           </p>
@@ -208,7 +199,19 @@ function WhosWho() {
             </span>
           </div>
           <div className="p-6 sm:p-8">
-            <h3 className="font-display text-2xl text-ink-deep">{role.title}</h3>
+            <h3 className="flex items-center gap-2 font-display text-2xl text-ink-deep">
+              {role.title}
+              {role.key === "queen" && (
+                <Image
+                  src="/images/icons/icon-queen-crown.png"
+                  alt=""
+                  width={336}
+                  height={512}
+                  aria-hidden
+                  className="h-6 w-auto"
+                />
+              )}
+            </h3>
             <p className="mt-3 text-ink-deep/75">{role.role}</p>
 
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
@@ -272,54 +275,63 @@ export default function MeetTheNeighbors() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-6 pb-16">
-        <h2 className="text-center font-display text-2xl text-ink-deep">
-          Colony at a Glance
-        </h2>
-        <div className="mt-8">
-          <ColonyAtAGlance />
-        </div>
-      </section>
+      <div className="relative">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          aria-hidden
+          style={{
+            backgroundImage: "url('/images/illustrations/pattern-doodle-honeycomb.webp')",
+            backgroundRepeat: "repeat",
+            backgroundSize: "260px auto",
+          }}
+        />
 
-      <section className="mx-auto max-w-5xl px-6 pb-16">
-        <h2 className="text-center font-display text-2xl text-ink-deep">
-          Who&apos;s Who in the Hive
-        </h2>
-        <p className="mx-auto mt-2 max-w-xl text-center text-sm text-ink-deep/60">
-          Tap a bee to meet her — every hive is a cast of characters.
-        </p>
-        <div className="mt-8">
-          <WhosWho />
-        </div>
-      </section>
+        <section className="relative mx-auto max-w-5xl px-6 pb-16 pt-16 sm:pt-20">
+          <h2 className="text-center font-display text-2xl text-ink-deep">
+            Colony at a Glance
+          </h2>
+          <div className="mt-8">
+            <ColonyAtAGlance />
+          </div>
+        </section>
+
+        <section className="relative mx-auto max-w-5xl px-6 pb-16">
+          <h2 className="text-center font-display text-2xl text-ink-deep">
+            Who&apos;s Who in the Hive
+          </h2>
+          <p className="mx-auto mt-2 max-w-xl text-center text-sm text-ink-deep/60">
+            Tap a bee to meet her — every hive is a cast of characters.
+          </p>
+          <div className="mt-8">
+            <WhosWho />
+          </div>
+        </section>
+      </div>
 
       <section className="bg-umber/10 px-6 py-16">
-        <div className="mx-auto flex max-w-4xl flex-col items-center gap-8 text-center md:flex-row md:text-left">
-          <div className="hidden w-28 shrink-0 md:block">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-olive">
+            Why It Matters
+          </p>
+          <div className="relative mx-auto mt-6 w-full max-w-xl">
             <Image
-              src="/images/illustrations/honeycomb-cell.webp"
-              alt=""
-              width={1200}
-              height={1200}
-              aria-hidden
+              src="/images/illustrations/why-it-matters.webp"
+              alt="A watercolor illustration showing habitat loss, changing weather, and pesticides threatening bees, a family eating a meal built on pollinated food, and a hive surrounded by wildflowers with the message: helping bees thrive benefits the whole community"
+              width={1406}
+              height={1068}
+              className="h-auto w-full"
             />
           </div>
-          <div>
-            <h2 className="font-display text-2xl text-ink-deep">
-              Why It Matters
-            </h2>
-            <p className="mt-4 text-ink-deep/75">
-              Honeybee colonies across the country continue to face
-              challenges from habitat loss, changing weather patterns, and
-              pesticides. Since roughly one out of every three bites of food
-              on our plates relies on pollinators, helping bees thrive
-              benefits the whole community.
-            </p>
-            <p className="mt-4 text-ink-deep/75">
-              A managed hive tucked into a neighborhood garden, complete with
-              regular health checks, gentle care, and nearby floral forage,
-              is one of the most effective ways to boost local biodiversity
-              and support regional ecology.
+
+          <div className="mt-6 flex gap-3 rounded-lg bg-gold/10 p-5 text-left">
+            <Sparkles className="h-5 w-5 shrink-0 text-gold-deep" />
+            <p className="text-sm text-ink-deep/80">
+              <span className="font-semibold">Here&apos;s the honest math: </span>
+              roughly 1 in 3 bites of food on your plate depends on a
+              pollinator. A managed hive tucked into a neighborhood garden —
+              regular health checks, gentle care, nearby floral forage — is
+              one of the most effective ways a community can boost local
+              biodiversity and support regional ecology.
             </p>
           </div>
         </div>
