@@ -100,28 +100,6 @@ const ROLES: Role[] = [
   },
 ];
 
-function HiveWindow() {
-  return (
-    <div className="relative mx-auto w-full max-w-[15rem] shrink-0 sm:mx-0">
-      <div className="relative aspect-[9/16] overflow-hidden rounded-[2rem] border-4 border-white shadow-xl ring-1 ring-umber/10">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          aria-hidden
-          className="pointer-events-none h-full w-full object-cover"
-        >
-          <source src="/videos/honeycomb-frame.mp4" type="video/mp4" />
-        </video>
-      </div>
-      <p className="mt-3 text-center text-xs text-ink-deep/50">
-        A real frame, straight from one of our hives
-      </p>
-    </div>
-  );
-}
-
 function ColonyAtAGlance() {
   return (
     <div className="grid gap-6 sm:grid-cols-3">
@@ -262,24 +240,35 @@ function WhosWho() {
 
 export default function MeetTheNeighbors() {
   return (
-    <div className="bg-cream pt-16">
-      <section className="px-6 py-16">
-        <div className="mx-auto flex max-w-4xl flex-col-reverse items-center gap-10 sm:flex-row sm:items-start sm:justify-center">
-          <div className="max-w-xl text-center sm:text-left">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-olive">
+    <div className="bg-cream">
+      <section className="relative flex min-h-[28rem] items-center overflow-hidden bg-ink-deep pt-16 sm:min-h-[34rem]">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+        >
+          <source src="/videos/hero-apiary-bees.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-ink-deep/70" />
+
+        <div className="relative mx-auto w-full max-w-5xl px-6 py-16">
+          <div className="max-w-xl text-left">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-bright">
               The Story of Our Bees
             </p>
-            <h1 className="mt-4 font-display text-3xl text-ink-deep sm:text-4xl">
+            <h1 className="mt-4 font-display text-3xl text-cream sm:text-4xl">
               Meet The Neighbors
             </h1>
-            <p className="mt-6 text-ink-deep/75">
+            <p className="mt-6 text-cream/80">
               Every jar of Garden Gold starts with a few hundred thousand very
               small neighbors. Each hive at Boxwoods is its own thriving
               civilization, living right here in the garden and going about
               their daily work while we go about ours.
             </p>
           </div>
-          <HiveWindow />
         </div>
       </section>
 
