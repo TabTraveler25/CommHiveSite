@@ -2,42 +2,22 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import {
-  Users,
-  Infinity as InfinityIcon,
-  MapPin,
-  Crown,
-  Hammer,
-  Wind,
-  Sparkles,
-  type LucideIcon,
-} from "lucide-react";
+import { Infinity as InfinityIcon, MapPin, Sparkles } from "lucide-react";
 import clsx from "clsx";
 
-const GLANCE_STATS: {
-  icon: LucideIcon;
-  label: string;
-  value: string;
-  detail: string;
-}[] = [
+const GLANCE_STATS = [
   {
-    icon: Users,
-    label: "Peak Population",
-    value: "40,000–60,000",
-    detail: "bees per active hive in midsummer",
-  },
-  {
-    icon: InfinityIcon,
     label: "Colony Lifespan",
     value: "Decades",
     detail:
       "individual bees come and go, but new generations and replacement queens keep a well-managed hive going indefinitely",
+    icon: InfinityIcon,
   },
   {
-    icon: MapPin,
     label: "Foraging Radius",
     value: "3 miles",
     detail: "in every direction — visiting 2M+ flowers for just one pound of honey",
+    icon: MapPin,
   },
 ];
 
@@ -46,7 +26,10 @@ type RoleStat = { label: string; value: string };
 type Role = {
   key: string;
   title: string;
-  icon: LucideIcon;
+  image: string;
+  imageWidth: number;
+  imageHeight: number;
+  flip?: boolean;
   role: string;
   stats: RoleStat[];
   funFact?: string;
@@ -56,7 +39,9 @@ const ROLES: Role[] = [
   {
     key: "queen",
     title: "The Queen",
-    icon: Crown,
+    image: "/images/illustrations/bee-detailed-top.webp",
+    imageWidth: 1704,
+    imageHeight: 2000,
     role: "She's the heart of the colony and the primary egg-layer. The whole hive organizes itself around keeping her healthy, fed, and safe.",
     stats: [
       {
@@ -72,7 +57,9 @@ const ROLES: Role[] = [
   {
     key: "workers",
     title: "The Workers",
-    icon: Hammer,
+    image: "/images/illustrations/bee-detailed-side.webp",
+    imageWidth: 2000,
+    imageHeight: 1923,
     role: "All female, workers handle every chore needed to sustain the hive. Their job shifts naturally as they age, from indoor nursery care to outdoor foraging.",
     stats: [
       {
@@ -91,7 +78,10 @@ const ROLES: Role[] = [
   {
     key: "drones",
     title: "The Drones",
-    icon: Wind,
+    image: "/images/illustrations/bee-detailed-side.webp",
+    imageWidth: 2000,
+    imageHeight: 1923,
+    flip: true,
     role: "The colony's male bees. Their one job is mating with queens from other hives, which spreads healthy genetic diversity across the region.",
     stats: [
       {
@@ -110,9 +100,54 @@ const ROLES: Role[] = [
   },
 ];
 
+function HiveWindow() {
+  return (
+    <div className="relative mx-auto w-full max-w-[15rem] shrink-0 sm:mx-0">
+      <div className="relative aspect-[9/16] overflow-hidden rounded-[2rem] border-4 border-white shadow-xl ring-1 ring-umber/10">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden
+          className="pointer-events-none h-full w-full object-cover"
+        >
+          <source src="/videos/honeycomb-frame.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <p className="mt-3 text-center text-xs text-ink-deep/50">
+        A real frame, straight from one of our hives
+      </p>
+    </div>
+  );
+}
+
 function ColonyAtAGlance() {
   return (
     <div className="grid gap-6 sm:grid-cols-3">
+      <div className="relative overflow-hidden rounded-xl border border-gold-deep/20 bg-ink-deep p-6 text-center">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-90 mix-blend-screen"
+        >
+          <source src="/videos/bee-swarm.mp4" type="video/mp4" />
+        </video>
+        <div className="relative">
+          <p className="font-display text-2xl text-gold-bright sm:text-3xl">
+            40,000–60,000
+          </p>
+          <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-cream/70">
+            Peak Population
+          </p>
+          <p className="mt-2 text-sm text-cream/70">
+            bees per active hive in midsummer
+          </p>
+        </div>
+      </div>
       {GLANCE_STATS.map((stat) => (
         <div
           key={stat.label}
@@ -154,12 +189,19 @@ function WhosWho() {
                   : "border-umber/15 bg-white/50 hover:border-gold-deep/40"
               )}
             >
-              <r.icon
-                className={clsx(
-                  "h-7 w-7",
-                  isActive ? "text-gold-deep" : "text-ink-deep/35"
-                )}
-              />
+              <span className="relative h-12 w-12">
+                <Image
+                  src={r.image}
+                  alt=""
+                  fill
+                  aria-hidden
+                  className={clsx(
+                    "object-contain transition-opacity",
+                    r.flip && "-scale-x-100",
+                    isActive ? "opacity-100" : "opacity-40 grayscale"
+                  )}
+                />
+              </span>
               <span
                 className={clsx(
                   "text-sm font-semibold",
@@ -173,33 +215,46 @@ function WhosWho() {
         })}
       </div>
 
-      <div className="mt-8 rounded-xl border border-gold-deep/20 bg-white/60 p-6 sm:p-8">
-        <div className="flex items-center gap-3">
-          <role.icon className="h-6 w-6 text-gold-deep" />
-          <h3 className="font-display text-2xl text-ink-deep">{role.title}</h3>
-        </div>
-        <p className="mt-3 text-ink-deep/75">{role.role}</p>
-
-        <div className="mt-5 grid gap-4 sm:grid-cols-2">
-          {role.stats.map((stat) => (
-            <div key={stat.label} className="rounded-lg bg-umber/5 p-4">
-              <p className="text-xs font-semibold uppercase tracking-wide text-gold-deep">
-                {stat.label}
-              </p>
-              <p className="mt-1 text-sm text-ink-deep/75">{stat.value}</p>
-            </div>
-          ))}
-        </div>
-
-        {role.funFact && (
-          <div className="mt-5 flex gap-3 rounded-lg bg-gold/10 p-4">
-            <Sparkles className="h-5 w-5 shrink-0 text-gold-deep" />
-            <p className="text-sm text-ink-deep/80">
-              <span className="font-semibold">Did you know? </span>
-              {role.funFact}
-            </p>
+      <div className="mt-8 overflow-hidden rounded-xl border border-gold-deep/20 bg-white/60">
+        <div className="flex flex-col sm:flex-row">
+          <div className="relative flex shrink-0 items-center justify-center bg-gradient-to-br from-gold/15 to-transparent p-6 sm:w-56">
+            <span className="relative block w-36 sm:w-40">
+              <Image
+                src={role.image}
+                alt=""
+                width={role.imageWidth}
+                height={role.imageHeight}
+                aria-hidden
+                className={clsx("h-auto w-full", role.flip && "-scale-x-100")}
+              />
+            </span>
           </div>
-        )}
+          <div className="p-6 sm:p-8">
+            <h3 className="font-display text-2xl text-ink-deep">{role.title}</h3>
+            <p className="mt-3 text-ink-deep/75">{role.role}</p>
+
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              {role.stats.map((stat) => (
+                <div key={stat.label} className="rounded-lg bg-umber/5 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-gold-deep">
+                    {stat.label}
+                  </p>
+                  <p className="mt-1 text-sm text-ink-deep/75">{stat.value}</p>
+                </div>
+              ))}
+            </div>
+
+            {role.funFact && (
+              <div className="mt-5 flex gap-3 rounded-lg bg-gold/10 p-4">
+                <Sparkles className="h-5 w-5 shrink-0 text-gold-deep" />
+                <p className="text-sm text-ink-deep/80">
+                  <span className="font-semibold">Did you know? </span>
+                  {role.funFact}
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -208,28 +263,23 @@ function WhosWho() {
 export default function MeetTheNeighbors() {
   return (
     <div className="bg-cream pt-16">
-      <section className="relative overflow-hidden px-6 py-16">
-        <Image
-          src="/images/illustrations/bee-1.webp"
-          alt=""
-          width={900}
-          height={788}
-          aria-hidden
-          className="pointer-events-none absolute -right-6 top-10 hidden w-24 -rotate-12 opacity-80 sm:block md:w-28"
-        />
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-olive">
-            The Story of Our Bees
-          </p>
-          <h1 className="mt-4 font-display text-3xl text-ink-deep sm:text-4xl">
-            Meet The Neighbors
-          </h1>
-          <p className="mt-6 text-ink-deep/75">
-            Every jar of Garden Gold starts with a few hundred thousand very
-            small neighbors. Each hive at Boxwoods is its own thriving
-            civilization, living right here in the garden and going about
-            their daily work while we go about ours.
-          </p>
+      <section className="px-6 py-16">
+        <div className="mx-auto flex max-w-4xl flex-col-reverse items-center gap-10 sm:flex-row sm:items-start sm:justify-center">
+          <div className="max-w-xl text-center sm:text-left">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-olive">
+              The Story of Our Bees
+            </p>
+            <h1 className="mt-4 font-display text-3xl text-ink-deep sm:text-4xl">
+              Meet The Neighbors
+            </h1>
+            <p className="mt-6 text-ink-deep/75">
+              Every jar of Garden Gold starts with a few hundred thousand very
+              small neighbors. Each hive at Boxwoods is its own thriving
+              civilization, living right here in the garden and going about
+              their daily work while we go about ours.
+            </p>
+          </div>
+          <HiveWindow />
         </div>
       </section>
 
