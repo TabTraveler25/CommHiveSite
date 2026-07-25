@@ -1,63 +1,150 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import type { CSSProperties } from "react";
 
-const HUB_CARDS = [
+type HubCard = {
+  href: string;
+  title: string;
+  icon: string;
+  iconWidth: number;
+  iconHeight: number;
+};
+
+const HUB_CARDS: HubCard[] = [
   {
     href: "/buzz-hub/meet-the-neighbors",
     title: "Meet The Neighbors",
-    blurb:
-      "The story of the bees who call Boxwoods home — and why they need us more than ever.",
-    image: "/images/illustrations/bee-1.webp",
-    imageWidth: 900,
-    imageHeight: 788,
-  },
-  {
-    href: "/buzz-hub/mission",
-    title: "The Mission",
-    blurb:
-      "Lush gardens, real conservation work, and a cause worth being part of.",
-    image: "/images/illustrations/honeycomb-cascade.webp",
-    imageWidth: 1200,
-    imageHeight: 1200,
+    icon: "/images/icons/icon-hive-bee.webp",
+    iconWidth: 126,
+    iconHeight: 111,
   },
   {
     href: "/buzz-hub/live-cam",
     title: "Live Hive Cam",
-    blurb:
-      "Real sensor data from inside the hive — temperature, activity, and growth, live.",
-    image: "/images/illustrations/honey-jar-wrapped.webp",
-    imageWidth: 1200,
-    imageHeight: 2082,
-  },
-  {
-    href: "/buzz-hub/ask-a-beekeeper",
-    title: "Ask a Beekeeper",
-    blurb:
-      "Get quick answers from our beekeeping assistant, or browse the FAQ.",
-    image: "/images/illustrations/beekeeper-portrait.webp",
-    imageWidth: 1200,
-    imageHeight: 1419,
+    icon: "/images/icons/icon-honeycomb-bee.webp",
+    iconWidth: 129,
+    iconHeight: 128,
   },
   {
     href: "/buzz-hub/blog",
     title: "Our Blog",
-    blurb:
-      "Dispatches from inside the hives — what's blooming, and what we're learning.",
-    image: "/images/illustrations/honeycomb-branch-2.webp",
-    imageWidth: 1400,
-    imageHeight: 594,
+    icon: "/images/icons/icon-honey-dipper.webp",
+    iconWidth: 126,
+    iconHeight: 129,
+  },
+  {
+    href: "/buzz-hub/mission",
+    title: "The Mission",
+    icon: "/images/icons/icon-apiary-cloud.webp",
+    iconWidth: 129,
+    iconHeight: 128,
+  },
+  {
+    href: "/buzz-hub/ask-a-beekeeper",
+    title: "Ask a Beekeeper",
+    icon: "/images/icons/icon-beekeeper.webp",
+    iconWidth: 128,
+    iconHeight: 121,
   },
   {
     href: "/buzz-hub/upcoming-events",
     title: "Upcoming Events",
-    blurb:
-      "Workshops, tours, and hands-on hive time — open to the whole neighborhood.",
-    image: "/images/illustrations/honeycomb-cluster.webp",
-    imageWidth: 1200,
-    imageHeight: 1301,
+    icon: "/images/icons/icon-honey-candle.webp",
+    iconWidth: 125,
+    iconHeight: 122,
   },
 ];
+
+const HEX_CLIP =
+  "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)";
+
+type Cell = { card?: HubCard };
+
+// Columns of the honeycomb, left to right. Alternating columns are
+// vertically offset by half a hex height so the cells interlock.
+const COLUMNS: Cell[][] = [
+  [{}, {}, {}],
+  [{}, {}],
+  [
+    { card: HUB_CARDS[0] },
+    { card: HUB_CARDS[1] },
+    { card: HUB_CARDS[2] },
+  ],
+  [
+    { card: HUB_CARDS[3] },
+    { card: HUB_CARDS[4] },
+    { card: HUB_CARDS[5] },
+  ],
+  [{}, {}],
+  [{}, {}, {}],
+];
+
+function Hex({ cell }: { cell: Cell }) {
+  const style: CSSProperties = {
+    width: "var(--hex-w)",
+    height: "var(--hex-h)",
+    clipPath: HEX_CLIP,
+  };
+
+  if (!cell.card) {
+    return (
+      <div
+        aria-hidden
+        style={style}
+        className="border border-gold-deep/15 bg-gold/5"
+      />
+    );
+  }
+
+  return (
+    <Link
+      href={cell.card.href}
+      style={style}
+      className="group flex flex-col items-center justify-center gap-0.5 overflow-hidden bg-gradient-to-br from-gold-bright to-gold-deep px-1 text-center transition-transform hover:scale-[1.04] sm:gap-1.5 sm:px-3"
+    >
+      <Image
+        src={cell.card.icon}
+        alt=""
+        width={cell.card.iconWidth}
+        height={cell.card.iconHeight}
+        aria-hidden
+        className="h-5 w-5 object-contain sm:h-9 sm:w-9"
+      />
+      <span className="w-[85%] break-words font-display text-[9px] leading-[1.15] text-ink-deep sm:text-sm">
+        {cell.card.title}
+      </span>
+    </Link>
+  );
+}
+
+function HoneycombGrid() {
+  return (
+    <div
+      className="mx-auto flex w-fit justify-center"
+      style={
+        {
+          "--hex-w": "clamp(66px, 19vw, 150px)",
+          "--hex-h": "calc(var(--hex-w) * 0.866)",
+        } as CSSProperties
+      }
+    >
+      {COLUMNS.map((column, i) => (
+        <div
+          key={i}
+          className="flex flex-col"
+          style={{
+            marginLeft: i === 0 ? 0 : "calc(var(--hex-w) * -0.26)",
+            marginTop: i % 2 === 1 ? "calc(var(--hex-h) / 2)" : 0,
+          }}
+        >
+          {column.map((cell, j) => (
+            <Hex key={j} cell={cell} />
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function BuzzHubOverview() {
   return (
@@ -75,32 +162,8 @@ export default function BuzzHubOverview() {
           now, and a place to ask us anything.
         </p>
 
-        <div className="mt-12 grid gap-6 text-left sm:grid-cols-2">
-          {HUB_CARDS.map((card) => (
-            <Link
-              key={card.href}
-              href={card.href}
-              className="group flex items-center gap-5 rounded-xl border border-gold-deep/20 bg-white/60 p-6 transition-colors hover:border-gold-deep/40 hover:bg-white/80"
-            >
-              <div className="relative h-16 w-16 shrink-0">
-                <Image
-                  src={card.image}
-                  alt=""
-                  width={card.imageWidth}
-                  height={card.imageHeight}
-                  aria-hidden
-                  className="h-full w-full object-contain"
-                />
-              </div>
-              <div className="flex-1">
-                <h2 className="flex items-center gap-1.5 font-display text-lg text-ink-deep">
-                  {card.title}
-                  <ArrowRight className="h-4 w-4 shrink-0 text-gold-deep opacity-0 transition-opacity group-hover:opacity-100" />
-                </h2>
-                <p className="mt-1 text-sm text-ink-deep/70">{card.blurb}</p>
-              </div>
-            </Link>
-          ))}
+        <div className="mt-14 overflow-x-auto">
+          <HoneycombGrid />
         </div>
       </section>
     </div>
