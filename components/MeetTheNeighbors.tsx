@@ -30,27 +30,36 @@ const GLANCE_STATS = [
 
 type RoleStat = { label: string; value: string };
 
+type RoleTheme = {
+  activeBorder: string;
+  activeBg: string;
+  accentText: string;
+  panelFrom: string;
+  factBg: string;
+};
+
 type Role = {
   key: string;
   title: string;
   image: string;
   imageWidth: number;
   imageHeight: number;
-  flip?: boolean;
   role: string;
   stats: RoleStat[];
   funFact?: string;
+  theme: RoleTheme;
 };
 
 const ROLES: Role[] = [
   {
     key: "queen",
     title: "The Queen",
-    image: "/images/illustrations/bee-detailed-top.webp",
-    imageWidth: 1704,
-    imageHeight: 2000,
+    image: "/images/illustrations/bee-real-queen.webp",
+    imageWidth: 132,
+    imageHeight: 120,
     role: "She's the heart of the colony and the primary egg-layer. The whole hive organizes itself around keeping her healthy, fed, and safe.",
     stats: [
+      { label: "Population", value: "Just one per colony" },
       {
         label: "Daily Output",
         value:
@@ -60,15 +69,23 @@ const ROLES: Role[] = [
     ],
     funFact:
       "Queens aren't born genetically different from workers. Any female egg can become a queen if she's fed exclusively on royal jelly throughout her growth.",
+    theme: {
+      activeBorder: "border-gold-deep",
+      activeBg: "bg-gold/10",
+      accentText: "text-gold-deep",
+      panelFrom: "from-gold/20",
+      factBg: "bg-gold/10",
+    },
   },
   {
     key: "workers",
     title: "The Workers",
-    image: "/images/illustrations/bee-detailed-side.webp",
-    imageWidth: 2000,
-    imageHeight: 1923,
+    image: "/images/illustrations/bee-real-worker.webp",
+    imageWidth: 121,
+    imageHeight: 100,
     role: "All female, workers handle every chore needed to sustain the hive. Their job shifts naturally as they age, from indoor nursery care to outdoor foraging.",
     stats: [
+      { label: "Population", value: "Tens of thousands per colony" },
       {
         label: "Career Path",
         value:
@@ -81,16 +98,23 @@ const ROLES: Role[] = [
     ],
     funFact:
       "A single worker makes about 1/12th of a teaspoon of honey in her whole lifetime. To tell her sisters where the good nectar is, she performs a rhythmic \"waggle dance\" on the honeycomb.",
+    theme: {
+      activeBorder: "border-olive",
+      activeBg: "bg-olive/10",
+      accentText: "text-olive",
+      panelFrom: "from-olive/20",
+      factBg: "bg-olive/10",
+    },
   },
   {
     key: "drones",
     title: "The Drones",
-    image: "/images/illustrations/bee-detailed-side.webp",
-    imageWidth: 2000,
-    imageHeight: 1923,
-    flip: true,
+    image: "/images/illustrations/bee-real-drone.webp",
+    imageWidth: 133,
+    imageHeight: 89,
     role: "The colony's male bees. Their one job is mating with queens from other hives, which spreads healthy genetic diversity across the region.",
     stats: [
+      { label: "Population", value: "A few hundred per colony, seasonal only" },
       {
         label: "Unique Traits",
         value:
@@ -104,6 +128,13 @@ const ROLES: Role[] = [
     ],
     funFact:
       "Mating is a one-way trip. A drone that succeeds dies immediately after — nature's way of saying he went out on top.",
+    theme: {
+      activeBorder: "border-umber",
+      activeBg: "bg-umber/10",
+      accentText: "text-umber",
+      panelFrom: "from-umber/20",
+      factBg: "bg-umber/10",
+    },
   },
 ];
 
@@ -154,11 +185,11 @@ function WhosWho() {
               className={clsx(
                 "flex flex-1 min-w-[8rem] flex-col items-center gap-2 rounded-xl border px-5 py-4 transition-all sm:flex-none sm:w-40",
                 isActive
-                  ? "scale-105 border-gold-deep bg-gold/10 shadow-sm"
-                  : "border-umber/15 bg-white/50 hover:border-gold-deep/40"
+                  ? clsx("scale-105 shadow-sm", r.theme.activeBorder, r.theme.activeBg)
+                  : "border-umber/15 bg-white/50 hover:border-umber/40"
               )}
             >
-              <span className="relative h-12 w-12">
+              <span className="relative h-16 w-16">
                 <Image
                   src={r.image}
                   alt=""
@@ -166,7 +197,6 @@ function WhosWho() {
                   aria-hidden
                   className={clsx(
                     "object-contain transition-opacity",
-                    r.flip && "-scale-x-100",
                     isActive ? "opacity-100" : "opacity-40 grayscale"
                   )}
                 />
@@ -186,15 +216,20 @@ function WhosWho() {
 
       <div className="mt-8 overflow-hidden rounded-xl border border-gold-deep/20 bg-white/60">
         <div className="flex flex-col sm:flex-row">
-          <div className="relative flex shrink-0 items-center justify-center bg-gradient-to-br from-gold/15 to-transparent p-6 sm:w-56">
-            <span className="relative block w-36 sm:w-40">
+          <div
+            className={clsx(
+              "relative flex shrink-0 items-center justify-center bg-gradient-to-br p-6 to-transparent sm:w-56",
+              role.theme.panelFrom
+            )}
+          >
+            <span className="relative block w-32 sm:w-36">
               <Image
                 src={role.image}
                 alt=""
                 width={role.imageWidth}
                 height={role.imageHeight}
                 aria-hidden
-                className={clsx("h-auto w-full", role.flip && "-scale-x-100")}
+                className="h-auto w-full drop-shadow-md"
               />
             </span>
           </div>
@@ -214,10 +249,15 @@ function WhosWho() {
             </h3>
             <p className="mt-3 text-ink-deep/75">{role.role}</p>
 
-            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+            <div className="mt-5 grid gap-4 sm:grid-cols-3">
               {role.stats.map((stat) => (
                 <div key={stat.label} className="rounded-lg bg-umber/5 p-4">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-gold-deep">
+                  <p
+                    className={clsx(
+                      "text-xs font-semibold uppercase tracking-wide",
+                      role.theme.accentText
+                    )}
+                  >
                     {stat.label}
                   </p>
                   <p className="mt-1 text-sm text-ink-deep/75">{stat.value}</p>
@@ -226,8 +266,13 @@ function WhosWho() {
             </div>
 
             {role.funFact && (
-              <div className="mt-5 flex gap-3 rounded-lg bg-gold/10 p-4">
-                <Sparkles className="h-5 w-5 shrink-0 text-gold-deep" />
+              <div
+                className={clsx(
+                  "mt-5 flex gap-3 rounded-lg p-4",
+                  role.theme.factBg
+                )}
+              >
+                <Sparkles className={clsx("h-5 w-5 shrink-0", role.theme.accentText)} />
                 <p className="text-sm text-ink-deep/80">
                   <span className="font-semibold">Did you know? </span>
                   {role.funFact}
@@ -277,12 +322,12 @@ export default function MeetTheNeighbors() {
 
       <div className="relative">
         <div
-          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          className="pointer-events-none absolute inset-0 opacity-[0.22]"
           aria-hidden
           style={{
             backgroundImage: "url('/images/illustrations/pattern-doodle-honeycomb.webp')",
             backgroundRepeat: "repeat",
-            backgroundSize: "260px auto",
+            backgroundSize: "480px auto",
           }}
         />
 
@@ -309,30 +354,32 @@ export default function MeetTheNeighbors() {
       </div>
 
       <section className="bg-umber/10 px-6 py-16">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-olive">
+        <div className="mx-auto max-w-5xl">
+          <p className="text-center text-xs font-semibold uppercase tracking-[0.3em] text-olive">
             Why It Matters
           </p>
-          <div className="relative mx-auto mt-6 w-full max-w-xl">
-            <Image
-              src="/images/illustrations/why-it-matters.webp"
-              alt="A watercolor illustration showing habitat loss, changing weather, and pesticides threatening bees, a family eating a meal built on pollinated food, and a hive surrounded by wildflowers with the message: helping bees thrive benefits the whole community"
-              width={1406}
-              height={1068}
-              className="h-auto w-full"
-            />
-          </div>
+          <div className="mt-8 flex flex-col items-center gap-8 md:flex-row">
+            <div className="relative w-full max-w-sm shrink-0 md:max-w-none md:flex-1">
+              <Image
+                src="/images/illustrations/why-it-matters.webp"
+                alt="A watercolor illustration showing habitat loss, changing weather, and pesticides threatening bees, a family eating a meal built on pollinated food, and a hive surrounded by wildflowers with the message: helping bees thrive benefits the whole community"
+                width={1406}
+                height={1068}
+                className="h-auto w-full"
+              />
+            </div>
 
-          <div className="mt-6 flex gap-3 rounded-lg bg-gold/10 p-5 text-left">
-            <Sparkles className="h-5 w-5 shrink-0 text-gold-deep" />
-            <p className="text-sm text-ink-deep/80">
-              <span className="font-semibold">Here&apos;s the honest math: </span>
-              roughly 1 in 3 bites of food on your plate depends on a
-              pollinator. A managed hive tucked into a neighborhood garden —
-              regular health checks, gentle care, nearby floral forage — is
-              one of the most effective ways a community can boost local
-              biodiversity and support regional ecology.
-            </p>
+            <div className="flex gap-3 rounded-lg bg-gold/10 p-5 text-left md:flex-1">
+              <Sparkles className="h-5 w-5 shrink-0 text-gold-deep" />
+              <p className="text-sm text-ink-deep/80">
+                <span className="font-semibold">Here&apos;s the honest math: </span>
+                roughly 1 in 3 bites of food on your plate depends on a
+                pollinator. A managed hive tucked into a neighborhood garden —
+                regular health checks, gentle care, nearby floral forage — is
+                one of the most effective ways a community can boost local
+                biodiversity and support regional ecology.
+              </p>
+            </div>
           </div>
         </div>
       </section>
