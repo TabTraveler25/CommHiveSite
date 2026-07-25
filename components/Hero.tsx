@@ -25,7 +25,7 @@ export default function Hero() {
         aria-hidden
         className="pointer-events-none absolute inset-0 h-full w-full object-cover"
       >
-        <source src="/videos/hero-bees.mp4" type="video/mp4" />
+        <source src="/videos/hero-apiary-bees.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-ink-deep/75" />
 
@@ -45,7 +45,7 @@ export default function Hero() {
         width={900}
         height={1272}
         aria-hidden
-        className="pointer-events-none absolute -left-10 bottom-0 hidden w-48 sm:block md:w-64"
+        className="pointer-events-none absolute -right-4 bottom-52 hidden w-28 sm:block sm:bottom-64 md:w-36"
       />
       <Image
         src="/images/illustrations/hive-on-stilts.webp"
@@ -56,15 +56,15 @@ export default function Hero() {
         className="pointer-events-none absolute -right-10 -bottom-16 hidden w-64 sm:block sm:-bottom-20 md:w-80"
       />
 
-      <div className="relative mx-auto max-w-4xl px-6 py-24 text-center sm:py-32">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white">
+      <div className="relative mr-auto max-w-2xl px-6 py-24 text-left sm:py-32">
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-bright">
           Right in the Neighborhood
         </p>
         <h1 className="mt-6 font-display text-4xl leading-tight text-cream sm:text-5xl md:text-6xl">
           Meet the Bees Next Door.{" "}
           <span className="text-gold-bright">Taste the Garden Gold.</span>
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-base text-cream/80 sm:text-lg">
+        <p className="mt-6 max-w-2xl text-base text-cream/80 sm:text-lg">
           Welcome to a living civilization located in picturesque gardens
           right here at Boxwoods and you can watch them work in real time.
           Then try the honey they&apos;ve been making! Experience the purest
@@ -77,10 +77,10 @@ export default function Hero() {
           width={2072}
           height={918}
           aria-hidden
-          className="pointer-events-none mx-auto mt-8 h-auto w-28 sm:w-32"
+          className="pointer-events-none ml-0 mr-auto mt-8 h-auto w-28 sm:w-32"
         />
 
-        <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <div className="mt-6 flex flex-col items-start justify-start gap-4 sm:flex-row">
           <Link
             href="/buzz-hub"
             className="w-full rounded-full bg-gold px-8 py-3 text-sm font-semibold text-ink-deep transition-colors hover:bg-gold-bright sm:w-auto"
