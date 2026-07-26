@@ -5,18 +5,25 @@ import { useCart } from "@/lib/cart-context";
 import { products, type Product } from "@/lib/products";
 import PlaceholderImage from "@/components/PlaceholderImage";
 
-const GROUPS: { key: Product["group"]; title: string; intro: string }[] = [
+const GROUPS: {
+  key: Product["group"];
+  title: string;
+  intro: string;
+  accentImage?: string;
+}[] = [
   {
     key: "honey",
     title: 'Premium "Garden Gold" Honey Collection',
     intro:
       "Every drop reflects the changing floral calendar of our neighborhood — from spring tulip poplar to rich summer sourwood.",
+    accentImage: "/images/products/honey-section-accent.webp",
   },
   {
     key: "apothecary",
     title: "The Boxwoods Apothecary & Home Line",
     intro:
       "Skin and home essentials built from the hive's own raw materials — wax, propolis, and royal jelly.",
+    accentImage: "/images/products/apothecary-section-accent.webp",
   },
   {
     key: "hardware",
@@ -102,8 +109,23 @@ export default function Shop() {
 
       {GROUPS.map((group) => (
         <section key={group.key} className="mx-auto max-w-6xl px-6 py-14">
-          <h2 className="font-display text-2xl text-ink-deep">{group.title}</h2>
-          <p className="mt-2 max-w-2xl text-sm text-ink-deep/60">{group.intro}</p>
+          <div className="flex flex-col items-center gap-8 md:flex-row">
+            <div className="md:flex-1">
+              <h2 className="font-display text-2xl text-ink-deep">{group.title}</h2>
+              <p className="mt-2 max-w-2xl text-sm text-ink-deep/60">{group.intro}</p>
+            </div>
+            {group.accentImage && (
+              <div className="relative aspect-[4/3] w-full max-w-sm shrink-0 overflow-hidden rounded-xl shadow-sm md:w-72">
+                <Image
+                  src={group.accentImage}
+                  alt=""
+                  fill
+                  aria-hidden
+                  className="object-cover"
+                />
+              </div>
+            )}
+          </div>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {products
               .filter((p) => p.group === group.key)

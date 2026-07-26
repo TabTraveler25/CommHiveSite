@@ -17,7 +17,7 @@ export const products: Product[] = [
     price: 34,
     copy: "Pure, untouched comb honey built, filled, and capped entirely by the bees themselves within elegant heart-shaped cassettes.",
     cta: "Secure This Season's Harvest",
-    image: "/images/honeycomb-jars.jpg",
+    image: "/images/products/heart-harvest-comb.webp",
   },
   {
     slug: "bespoke-comb-cassettes",
@@ -25,6 +25,7 @@ export const products: Product[] = [
     group: "honey",
     price: 28,
     copy: "Professional, retail-ready section comb honey meticulously cut for the sophisticated palate.",
+    image: "/images/products/bespoke-comb-cassettes.webp",
   },
   {
     slug: "velvet-creamed-honey",
@@ -32,6 +33,7 @@ export const products: Product[] = [
     group: "honey",
     price: 22,
     copy: "A perfectly smooth, spreadable luxury honey varietal designed for fine pairings.",
+    image: "/images/products/velvet-creamed-honey.webp",
   },
   {
     slug: "neighborhood-nectar-flight",
@@ -39,6 +41,7 @@ export const products: Product[] = [
     group: "honey",
     price: 48,
     copy: "A curated seasonal collection of small-batch jars mirroring our shifting garden forage.",
+    image: "/images/products/neighborhood-nectar-flight.webp",
   },
   // 2. The Boxwoods Apothecary & Home Line
   {
@@ -47,6 +50,7 @@ export const products: Product[] = [
     group: "apothecary",
     price: 26,
     copy: "Hand-poured in artistic, decorative molds. Emits a natural, delicate honeyed aroma.",
+    image: "/images/products/garden-glow-candles.webp",
   },
   {
     slug: "royal-jelly-cream",
@@ -54,7 +58,7 @@ export const products: Product[] = [
     group: "apothecary",
     price: 58,
     copy: 'Premium, nutrient-dense facial care using elite, high-value "bee milk."',
-    image: "/images/apothecary-shelf.jpg",
+    image: "/images/products/royal-jelly-cream.webp",
   },
   {
     slug: "propolis-defense-salve",
@@ -62,6 +66,7 @@ export const products: Product[] = [
     group: "apothecary",
     price: 24,
     copy: "Artisanal skin defense infused with the hive's own raw medicinal antibiotic.",
+    image: "/images/products/propolis-defense-salve.webp",
   },
   {
     slug: "nectar-wax-soaps",
@@ -69,6 +74,7 @@ export const products: Product[] = [
     group: "apothecary",
     price: 14,
     copy: "Pure garden-harvested beeswax blended with local botanical pollinator scents.",
+    image: "/images/products/nectar-wax-soaps.webp",
   },
   // 3. Pro-Grade Beekeeping Hardware
   {
