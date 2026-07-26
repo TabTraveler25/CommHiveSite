@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
+import clsx from "clsx";
 
 type HubCard = {
   href: string;
@@ -8,75 +9,83 @@ type HubCard = {
   icon: string;
   iconWidth: number;
   iconHeight: number;
+  gradient: string;
+  textLight?: boolean;
 };
 
-const HUB_CARDS: HubCard[] = [
-  {
-    href: "/buzz-hub/meet-the-neighbors",
-    title: "Meet The Neighbors",
-    icon: "/images/icons/icon-hive-bee.webp",
-    iconWidth: 126,
-    iconHeight: 111,
-  },
-  {
-    href: "/buzz-hub/live-cam",
-    title: "Live Hive Cam",
-    icon: "/images/icons/icon-honeycomb-bee.webp",
-    iconWidth: 129,
-    iconHeight: 128,
-  },
-  {
-    href: "/buzz-hub/blog",
-    title: "Our Blog",
-    icon: "/images/icons/icon-honey-dipper.webp",
-    iconWidth: 126,
-    iconHeight: 129,
-  },
-  {
-    href: "/buzz-hub/mission",
-    title: "The Mission",
-    icon: "/images/icons/icon-apiary-cloud.webp",
-    iconWidth: 129,
-    iconHeight: 128,
-  },
-  {
-    href: "/buzz-hub/ask-a-beekeeper",
-    title: "Ask a Beekeeper",
-    icon: "/images/icons/icon-beekeeper.webp",
-    iconWidth: 128,
-    iconHeight: 121,
-  },
-  {
-    href: "/buzz-hub/upcoming-events",
-    title: "Upcoming Events",
-    icon: "/images/icons/icon-honey-candle.webp",
-    iconWidth: 125,
-    iconHeight: 122,
-  },
-];
+const MEET_THE_NEIGHBORS: HubCard = {
+  href: "/buzz-hub/meet-the-neighbors",
+  title: "Meet The Neighbors",
+  icon: "/images/icons/icon-hive-bee.webp",
+  iconWidth: 126,
+  iconHeight: 111,
+  gradient: "from-umber to-gold-deep",
+  textLight: true,
+};
+const LIVE_HIVE_CAM: HubCard = {
+  href: "/buzz-hub/live-cam",
+  title: "Live Hive Cam",
+  icon: "/images/icons/icon-honeycomb-bee.webp",
+  iconWidth: 129,
+  iconHeight: 128,
+  gradient: "from-gold/70 to-gold-bright",
+};
+const OUR_BLOG: HubCard = {
+  href: "/buzz-hub/blog",
+  title: "Our Blog",
+  icon: "/images/icons/icon-honey-dipper.webp",
+  iconWidth: 126,
+  iconHeight: 129,
+  gradient: "from-gold-deep to-gold",
+};
+const THE_MISSION: HubCard = {
+  href: "/buzz-hub/mission",
+  title: "The Mission",
+  icon: "/images/icons/icon-apiary-cloud.webp",
+  iconWidth: 129,
+  iconHeight: 128,
+  gradient: "from-gold-deep to-olive",
+  textLight: true,
+};
+const ASK_A_BEEKEEPER: HubCard = {
+  href: "/buzz-hub/ask-a-beekeeper",
+  title: "Ask a Beekeeper",
+  icon: "/images/icons/icon-beekeeper.webp",
+  iconWidth: 128,
+  iconHeight: 121,
+  gradient: "from-gold/50 to-gold",
+};
+const UPCOMING_EVENTS: HubCard = {
+  href: "/buzz-hub/upcoming-events",
+  title: "Upcoming Events",
+  icon: "/images/icons/icon-honey-candle.webp",
+  iconWidth: 125,
+  iconHeight: 122,
+  gradient: "from-gold-bright to-gold-deep",
+};
 
 const HEX_CLIP =
   "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)";
 
-type Cell = { card?: HubCard };
+type Cell = { card?: HubCard; filled?: boolean };
+const D = (filled = false): Cell => ({ filled });
 
 // Columns of the honeycomb, left to right. Alternating columns are
-// vertically offset by half a hex height so the cells interlock.
+// vertically offset by half a hex height so the cells interlock. The
+// 6 destinations form a diamond-shaped "bloom" across the 4 middle
+// columns (1 / 2 / 2 / 1 real cells), surrounded by decorative cells —
+// some outlined, some softly filled — to round out the honeycomb.
 const COLUMNS: Cell[][] = [
-  [{}, {}, {}],
-  [{}, {}],
-  [
-    { card: HUB_CARDS[0] },
-    { card: HUB_CARDS[1] },
-    { card: HUB_CARDS[2] },
-  ],
-  [
-    { card: HUB_CARDS[3] },
-    { card: HUB_CARDS[4] },
-    { card: HUB_CARDS[5] },
-  ],
-  [{}, {}],
-  [{}, {}, {}],
+  [D(), D(true), D()],
+  [D(), D(), D(true), D()],
+  [D(true), D(), D(), D()],
+  [{ card: MEET_THE_NEIGHBORS }, D(), D(true), D()],
+  [D(), { card: LIVE_HIVE_CAM }, { card: OUR_BLOG }, D()],
+  [{ card: THE_MISSION }, { card: UPCOMING_EVENTS }, D(), D()],
+  [D(), { card: ASK_A_BEEKEEPER }, D(), D()],
+  [D(), D(), D(true), D()],
+  [D(true), D(), D(), D()],
+  [D(), D(true), D()],
 ];
 
 function Hex({ cell }: { cell: Cell }) {
@@ -91,7 +100,11 @@ function Hex({ cell }: { cell: Cell }) {
       <div
         aria-hidden
         style={style}
-        className="border border-gold-deep/15 bg-gold/5"
+        className={clsx(
+          cell.filled
+            ? "bg-gradient-to-br from-gold/25 to-gold-deep/10"
+            : "border border-gold-deep/20 bg-white/40"
+        )}
       />
     );
   }
@@ -100,7 +113,10 @@ function Hex({ cell }: { cell: Cell }) {
     <Link
       href={cell.card.href}
       style={style}
-      className="group flex flex-col items-center justify-center gap-0.5 overflow-hidden bg-gradient-to-br from-gold-bright to-gold-deep px-1 text-center transition-transform hover:scale-[1.04] sm:gap-1.5 sm:px-3"
+      className={clsx(
+        "group flex flex-col items-center justify-center gap-0.5 overflow-hidden bg-gradient-to-br px-1 text-center transition-transform hover:scale-[1.04] sm:gap-1.5 sm:px-3",
+        cell.card.gradient
+      )}
     >
       <Image
         src={cell.card.icon}
@@ -110,25 +126,30 @@ function Hex({ cell }: { cell: Cell }) {
         aria-hidden
         className="h-5 w-5 object-contain sm:h-9 sm:w-9"
       />
-      <span className="w-[85%] break-words font-display text-[9px] leading-[1.15] text-ink-deep sm:text-sm">
+      <span
+        className={clsx(
+          "w-[85%] break-words font-display text-[9px] leading-[1.15] sm:text-sm",
+          cell.card.textLight ? "text-cream" : "text-ink-deep"
+        )}
+      >
         {cell.card.title}
       </span>
     </Link>
   );
 }
 
-function HoneycombGrid() {
+function Columns({ columns }: { columns: Cell[][] }) {
   return (
     <div
       className="mx-auto flex w-fit justify-center"
       style={
         {
-          "--hex-w": "clamp(66px, 19vw, 150px)",
+          "--hex-w": "clamp(70px, 15vw, 130px)",
           "--hex-h": "calc(var(--hex-w) * 0.866)",
         } as CSSProperties
       }
     >
-      {COLUMNS.map((column, i) => (
+      {columns.map((column, i) => (
         <div
           key={i}
           className="flex flex-col"
@@ -143,6 +164,23 @@ function HoneycombGrid() {
         </div>
       ))}
     </div>
+  );
+}
+
+// On small screens the outermost decorative columns are dropped so the
+// 6 real destinations stay legible instead of shrinking to fit them all.
+const MOBILE_COLUMNS = COLUMNS.slice(2, 8);
+
+function HoneycombGrid() {
+  return (
+    <>
+      <div className="sm:hidden">
+        <Columns columns={MOBILE_COLUMNS} />
+      </div>
+      <div className="hidden sm:block">
+        <Columns columns={COLUMNS} />
+      </div>
+    </>
   );
 }
 
