@@ -9,7 +9,7 @@ type HubCard = {
   icon: string;
   iconWidth: number;
   iconHeight: number;
-  gradient: string;
+  fill: string;
   textLight?: boolean;
 };
 
@@ -19,7 +19,7 @@ const MEET_THE_NEIGHBORS: HubCard = {
   icon: "/images/icons/icon-hive-bee.webp",
   iconWidth: 126,
   iconHeight: 111,
-  gradient: "from-umber to-gold-deep",
+  fill: "fill-umber",
   textLight: true,
 };
 const LIVE_HIVE_CAM: HubCard = {
@@ -28,7 +28,7 @@ const LIVE_HIVE_CAM: HubCard = {
   icon: "/images/icons/icon-honeycomb-bee.webp",
   iconWidth: 129,
   iconHeight: 128,
-  gradient: "from-gold/70 to-gold-bright",
+  fill: "fill-gold-bright",
 };
 const OUR_BLOG: HubCard = {
   href: "/buzz-hub/blog",
@@ -36,7 +36,7 @@ const OUR_BLOG: HubCard = {
   icon: "/images/icons/icon-honey-dipper.webp",
   iconWidth: 126,
   iconHeight: 129,
-  gradient: "from-gold-deep to-gold",
+  fill: "fill-gold-deep",
 };
 const THE_MISSION: HubCard = {
   href: "/buzz-hub/mission",
@@ -44,7 +44,7 @@ const THE_MISSION: HubCard = {
   icon: "/images/icons/icon-apiary-cloud.webp",
   iconWidth: 129,
   iconHeight: 128,
-  gradient: "from-gold-deep to-olive",
+  fill: "fill-olive",
   textLight: true,
 };
 const ASK_A_BEEKEEPER: HubCard = {
@@ -53,7 +53,7 @@ const ASK_A_BEEKEEPER: HubCard = {
   icon: "/images/icons/icon-beekeeper.webp",
   iconWidth: 128,
   iconHeight: 121,
-  gradient: "from-gold/50 to-gold",
+  fill: "fill-gold",
 };
 const UPCOMING_EVENTS: HubCard = {
   href: "/buzz-hub/upcoming-events",
@@ -61,90 +61,105 @@ const UPCOMING_EVENTS: HubCard = {
   icon: "/images/icons/icon-honey-candle.webp",
   iconWidth: 125,
   iconHeight: 122,
-  gradient: "from-gold-bright to-gold-deep",
+  fill: "fill-gold-bright",
 };
 
-const HEX_CLIP =
-  "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)";
+const HEX_POINTS = "25,0 75,0 100,43.3 75,86.6 25,86.6 0,43.3";
 
-type Cell = { card?: HubCard; filled?: boolean };
-const D = (filled = false): Cell => ({ filled });
+type Cell = { card?: HubCard; color?: string };
+const D = (color?: string): Cell => ({ color });
 
 // Columns of the honeycomb, left to right. Alternating columns are
 // vertically offset by half a hex height so the cells interlock. The
 // 6 destinations form a diamond-shaped "bloom" across the 4 middle
 // columns (1 / 2 / 2 / 1 real cells), surrounded by decorative cells —
-// some outlined, some softly filled — to round out the honeycomb.
+// some plain outline, some solid-colored — to round out the honeycomb.
 const COLUMNS: Cell[][] = [
-  [D(), D(true), D()],
-  [D(), D(), D(true), D()],
-  [D(true), D(), D(), D()],
-  [{ card: MEET_THE_NEIGHBORS }, D(), D(true), D()],
+  [D(), D("fill-gold/50"), D()],
+  [D(), D(), D("fill-gold-deep/40"), D()],
+  [D("fill-gold-bright/40"), D(), D(), D()],
+  [{ card: MEET_THE_NEIGHBORS }, D(), D("fill-olive/30"), D()],
   [D(), { card: LIVE_HIVE_CAM }, { card: OUR_BLOG }, D()],
   [{ card: THE_MISSION }, { card: UPCOMING_EVENTS }, D(), D()],
   [D(), { card: ASK_A_BEEKEEPER }, D(), D()],
-  [D(), D(), D(true), D()],
-  [D(true), D(), D(), D()],
-  [D(), D(true), D()],
+  [D(), D(), D("fill-gold-deep/40"), D()],
+  [D("fill-gold/50"), D(), D(), D()],
+  [D(), D("fill-gold-bright/40"), D()],
 ];
 
 function Hex({ cell }: { cell: Cell }) {
-  const style: CSSProperties = {
+  const outerStyle: CSSProperties = {
     width: "var(--hex-w)",
     height: "var(--hex-h)",
-    clipPath: HEX_CLIP,
   };
 
   if (!cell.card) {
     return (
-      <div
-        aria-hidden
-        style={style}
-        className={clsx(
-          cell.filled
-            ? "bg-gradient-to-br from-gold/25 to-gold-deep/10"
-            : "border border-gold-deep/20 bg-white/40"
-        )}
-      />
+      <div style={outerStyle} className="relative" aria-hidden>
+        <svg
+          viewBox="0 0 100 86.6"
+          preserveAspectRatio="none"
+          className="absolute inset-0 h-full w-full overflow-visible"
+        >
+          <polygon
+            points={HEX_POINTS}
+            className={clsx(
+              cell.color ?? "fill-white/50",
+              "stroke-gold-deep/40"
+            )}
+            strokeWidth="1.5"
+          />
+        </svg>
+      </div>
     );
   }
 
   return (
     <Link
       href={cell.card.href}
-      style={style}
-      className={clsx(
-        "group flex flex-col items-center justify-center gap-0.5 overflow-hidden bg-gradient-to-br px-1 text-center transition-transform hover:scale-[1.04] sm:gap-1.5 sm:px-3",
-        cell.card.gradient
-      )}
+      style={outerStyle}
+      className="group relative block transition-transform hover:scale-[1.04]"
     >
-      <Image
-        src={cell.card.icon}
-        alt=""
-        width={cell.card.iconWidth}
-        height={cell.card.iconHeight}
-        aria-hidden
-        className="h-5 w-5 object-contain sm:h-9 sm:w-9"
-      />
-      <span
-        className={clsx(
-          "w-[85%] break-words font-display text-[9px] leading-[1.15] sm:text-sm",
-          cell.card.textLight ? "text-cream" : "text-ink-deep"
-        )}
+      <svg
+        viewBox="0 0 100 86.6"
+        preserveAspectRatio="none"
+        className="absolute inset-0 h-full w-full overflow-visible"
       >
-        {cell.card.title}
-      </span>
+        <polygon
+          points={HEX_POINTS}
+          className={clsx(cell.card.fill, "stroke-ink-deep/30")}
+          strokeWidth="2"
+        />
+      </svg>
+      <div className="relative flex h-full w-full flex-col items-center justify-center gap-0.5 px-1 text-center sm:gap-1.5 sm:px-3">
+        <Image
+          src={cell.card.icon}
+          alt=""
+          width={cell.card.iconWidth}
+          height={cell.card.iconHeight}
+          aria-hidden
+          className="h-6 w-6 object-contain sm:h-10 sm:w-10"
+        />
+        <span
+          className={clsx(
+            "w-[85%] break-words font-display text-[9px] leading-[1.15] sm:text-sm",
+            cell.card.textLight ? "text-cream" : "text-ink-deep"
+          )}
+        >
+          {cell.card.title}
+        </span>
+      </div>
     </Link>
   );
 }
 
-function Columns({ columns }: { columns: Cell[][] }) {
+function Columns({ columns, hexWidth }: { columns: Cell[][]; hexWidth: string }) {
   return (
     <div
       className="mx-auto flex w-fit justify-center"
       style={
         {
-          "--hex-w": "clamp(70px, 15vw, 130px)",
+          "--hex-w": hexWidth,
           "--hex-h": "calc(var(--hex-w) * 0.866)",
         } as CSSProperties
       }
@@ -175,10 +190,10 @@ function HoneycombGrid() {
   return (
     <>
       <div className="sm:hidden">
-        <Columns columns={MOBILE_COLUMNS} />
+        <Columns columns={MOBILE_COLUMNS} hexWidth="clamp(58px, 18vw, 70px)" />
       </div>
       <div className="hidden sm:block">
-        <Columns columns={COLUMNS} />
+        <Columns columns={COLUMNS} hexWidth="clamp(88px, 17vw, 143px)" />
       </div>
     </>
   );
