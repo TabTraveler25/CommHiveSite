@@ -4,6 +4,15 @@ import { useState, type FormEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+const GALLERY = [
+  "/images/products/heart-harvest-comb.webp",
+  "/images/products/garden-glow-candles.webp",
+  "/images/products/velvet-creamed-honey.webp",
+  "/images/products/bespoke-comb-cassettes.webp",
+  "/images/products/nectar-wax-soaps.webp",
+  "/images/products/neighborhood-nectar-flight.webp",
+];
+
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
@@ -59,6 +68,30 @@ export default function Footer() {
                 You&apos;re on the list — welcome to the hive.
               </p>
             )}
+
+            <p className="mt-8 text-xs font-semibold uppercase tracking-[0.2em] text-cream/50">
+              Follow the Hives
+            </p>
+            <Link
+              href="/shop"
+              className="mt-3 grid grid-cols-3 gap-1.5"
+              aria-label="See more from the Garden Gold Shop"
+            >
+              {GALLERY.map((src) => (
+                <span
+                  key={src}
+                  className="relative aspect-square overflow-hidden rounded-sm bg-cream/5"
+                >
+                  <Image
+                    src={src}
+                    alt=""
+                    fill
+                    aria-hidden
+                    className="object-cover opacity-90 transition-opacity hover:opacity-100"
+                  />
+                </span>
+              ))}
+            </Link>
           </div>
 
           <div>

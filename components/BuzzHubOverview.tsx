@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import clsx from "clsx";
+import GrainOverlay from "@/components/GrainOverlay";
 
 type HubCard = {
   href: string;
@@ -192,6 +193,7 @@ export default function BuzzHubOverview() {
           className="pointer-events-none object-cover opacity-15"
         />
         <div className="absolute inset-0 bg-ink-deep/70" />
+        <GrainOverlay filterId="grain-buzzhub-hero" opacity={0.05} />
 
         <div className="relative mx-auto max-w-3xl px-6 py-16 text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-bright">

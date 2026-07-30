@@ -2,11 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { blogPosts } from "@/lib/content";
 
-function formatDate(iso: string) {
+function formatShortDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", {
-    month: "long",
+    month: "short",
     day: "numeric",
-    year: "numeric",
   });
 }
 
@@ -33,24 +32,25 @@ export default function Blog() {
             <Link
               key={post.slug}
               href={`/buzz-hub/blog/${post.slug}`}
-              className="flex items-center gap-5 rounded-lg border border-umber/15 bg-white/60 p-4 transition-colors hover:bg-white/80 sm:p-6"
+              className="group overflow-hidden rounded-lg border border-umber/15 bg-white/60 transition-colors hover:bg-white/80"
             >
-              <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md bg-umber/5 sm:h-24 sm:w-24">
+              <div className="relative h-40 w-full overflow-hidden bg-umber/5 sm:h-48">
                 <Image
                   src={post.media.src}
                   alt=""
                   fill
                   aria-hidden
-                  className="object-contain p-2"
+                  className="object-contain p-6 transition-transform duration-300 group-hover:scale-105"
                 />
+                <span className="absolute left-0 top-4 rounded-r-full bg-gold-bright py-1 pl-3 pr-4 text-[11px] font-bold uppercase tracking-wide text-ink-deep shadow-sm">
+                  {formatShortDate(post.date)}
+                </span>
+                <span className="absolute right-4 top-4 rounded-full bg-ink-deep/80 px-3 py-1 text-[11px] font-semibold text-cream">
+                  {post.category}
+                </span>
               </div>
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-wide text-gold-deep">
-                  {formatDate(post.date)}
-                </p>
-                <h2 className="mt-1 font-display text-xl text-ink-deep">
-                  {post.title}
-                </h2>
+              <div className="p-5 sm:p-6">
+                <h2 className="font-display text-xl text-ink-deep">{post.title}</h2>
                 <p className="mt-2 text-sm text-ink-deep/70">{post.excerpt}</p>
               </div>
             </Link>

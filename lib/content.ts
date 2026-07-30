@@ -64,6 +64,7 @@ export type BlogPost = {
   slug: string;
   title: string;
   date: string;
+  category: string;
   excerpt: string;
   body: string[];
   media: {
@@ -79,6 +80,7 @@ export const blogPosts: BlogPost[] = [
     slug: "welcome-to-the-nectar-flow",
     title: "Welcome to the Nectar Flow",
     date: "2026-06-18",
+    category: "Seasonal",
     excerpt:
       "Why late spring is the busiest — and sweetest — stretch of the year for our hives.",
     media: {
@@ -97,6 +99,7 @@ export const blogPosts: BlogPost[] = [
     slug: "what-a-mite-inspection-actually-looks-like",
     title: "What a Mite Inspection Actually Looks Like",
     date: "2026-05-22",
+    category: "Hive Health",
     excerpt:
       "A behind-the-veil look at the unglamorous, essential work of keeping a colony healthy.",
     media: {
@@ -115,6 +118,7 @@ export const blogPosts: BlogPost[] = [
     slug: "why-we-plant-for-november-not-just-april",
     title: "Why We Plant for November, Not Just April",
     date: "2026-04-10",
+    category: "Garden Planning",
     excerpt:
       "The unglamorous late-bloomers that keep a hive fed after the big spring flush ends.",
     media: {

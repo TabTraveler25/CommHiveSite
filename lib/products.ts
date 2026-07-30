@@ -6,6 +6,7 @@ export type Product = {
   copy: string;
   cta?: string;
   image?: string;
+  featured?: boolean;
 };
 
 export const products: Product[] = [
@@ -18,6 +19,7 @@ export const products: Product[] = [
     copy: "Pure, untouched comb honey built, filled, and capped entirely by the bees themselves within elegant heart-shaped cassettes.",
     cta: "Secure This Season's Harvest",
     image: "/images/products/heart-harvest-comb.webp",
+    featured: true,
   },
   {
     slug: "bespoke-comb-cassettes",
@@ -42,6 +44,7 @@ export const products: Product[] = [
     price: 48,
     copy: "A curated seasonal collection of small-batch jars mirroring our shifting garden forage.",
     image: "/images/products/neighborhood-nectar-flight.webp",
+    featured: true,
   },
   // 2. The Boxwoods Apothecary & Home Line
   {

@@ -79,3 +79,7 @@ body {
   60% { transform: rotate(-8deg) scale(1.1); }
   80% { transform: rotate(6deg) scale(1.08); }
 }
+
+@keyframes seal-spin {
+  to { transform: rotate(360deg); }
+}

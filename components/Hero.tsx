@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import AnimatedBees from "@/components/AnimatedBees";
+import GrainOverlay from "@/components/GrainOverlay";
+import TrustSeal from "@/components/TrustSeal";
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -28,6 +30,15 @@ export default function Hero() {
         <source src="/videos/hero-bees.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-ink-deep/75" />
+      <GrainOverlay filterId="grain-home-hero" opacity={0.05} />
+
+      <TrustSeal
+        ringText="RAISED IN THE GARDEN • ATLANTA, GA •"
+        line1="100%"
+        line2="RAW"
+        tone="dark"
+        className="absolute left-6 top-24 hidden sm:block"
+      />
 
       <Image
         src="/images/illustrations/honeycomb-branch-1.webp"

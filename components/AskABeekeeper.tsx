@@ -124,6 +124,39 @@ function ChatScene() {
   );
 }
 
+const TEAM = [
+  { role: "Head Beekeeper" },
+  { role: "Apiary Manager" },
+  { role: "Garden Concierge Lead" },
+];
+
+function TeamRow() {
+  return (
+    <div className="mt-10 flex justify-center gap-4 sm:gap-6">
+      {TEAM.map((member) => (
+        <div key={member.role} className="w-20 text-center sm:w-24">
+          <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg border-2 border-gold-deep/50 bg-gradient-to-br from-umber/20 to-olive/10">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Image
+                src="/images/icons/icon-beekeeper.webp"
+                alt=""
+                width={128}
+                height={121}
+                aria-hidden
+                className="h-8 w-8 object-contain opacity-50 sm:h-10 sm:w-10"
+              />
+            </div>
+          </div>
+          <p className="mt-2 text-[11px] font-semibold text-ink-deep sm:text-xs">
+            {member.role}
+          </p>
+          <p className="text-[10px] text-ink-deep/45">Photo coming soon</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function FaqAccordion() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
@@ -199,6 +232,7 @@ export default function AskABeekeeper() {
             Try our assistant for a quick answer, or browse the questions we
             hear most below.
           </p>
+          <TeamRow />
         </div>
 
         <div className="relative mx-auto max-w-3xl">

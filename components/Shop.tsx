@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useCart } from "@/lib/cart-context";
 import { products, type Product } from "@/lib/products";
 import PlaceholderImage from "@/components/PlaceholderImage";
+import GrainOverlay from "@/components/GrainOverlay";
+import TrustSeal from "@/components/TrustSeal";
 
 const GROUPS: {
   key: Product["group"];
@@ -46,6 +48,11 @@ function ProductCard({ product }: { product: Product }) {
             fill
             className="object-cover"
           />
+          {product.featured && (
+            <span className="absolute right-3 top-3 rounded-full bg-gold-bright px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-ink-deep shadow-sm">
+              Featured
+            </span>
+          )}
         </div>
       ) : (
         <PlaceholderImage label={product.name} className="aspect-[4/3] w-full" />
@@ -73,15 +80,30 @@ function ProductCard({ product }: { product: Product }) {
 export default function Shop() {
   return (
     <div className="pt-16">
-      <section className="bg-umber/10 px-6 py-16">
-        <div className="mx-auto flex max-w-5xl items-center justify-center gap-10">
-          <div className="hidden w-32 shrink-0 md:block">
+      <section className="relative overflow-hidden bg-umber/10 px-6 py-16">
+        <GrainOverlay filterId="grain-shop-hero" opacity={0.05} />
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 right-0 hidden select-none items-center font-display text-[8rem] font-semibold text-ink-deep/[0.06] sm:text-[10rem] md:flex"
+        >
+          GOLD
+        </span>
+
+        <div className="relative mx-auto flex max-w-5xl items-center justify-center gap-10">
+          <div className="hidden shrink-0 flex-col items-center gap-4 md:flex">
             <Image
               src="/images/illustrations/comb-block.webp"
               alt=""
               width={1200}
               height={930}
               aria-hidden
+              className="w-32"
+            />
+            <TrustSeal
+              ringText="SMALL BATCH • GARDEN GROWN •"
+              line1="HIVE"
+              line2="TO JAR"
+              tone="light"
             />
           </div>
           <div className="max-w-2xl text-center">
